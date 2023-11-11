@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getPokemonTypes, getPokemons } from "../../services/poke-api"
+import { getPokemonsWithTypes } from "../../services/poke-api"
 import { ButtonSeeMore } from "../button/button"
 import styled from "styled-components"
 import pokemonLogo from "../../assets/images/Pokemon-Logo.png"
@@ -7,44 +7,40 @@ import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export const Home = () => {
-    const [ pokemons, setPokemons ] = useState([])
-    const [ types, setTypes ] = useState([]);
-    const [visiblePokemons, setVisiblePokemons] = useState(10);
+    const [pokemonsData, setPokemonsData] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchData() {
-            const pokemons = await getPokemons()
-            setPokemons(pokemons.results)
-
-            const types = await getPokemonTypes()
-            setTypes(types)
+            const pokemonsWithTypes = await getPokemonsWithTypes();
+            setPokemonsData(pokemonsWithTypes);
         }
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
 
     const formatNumber = (index) => {
-        return index < 10 ? `00${index}` : `0${index}`;
+        return index < 10 ? `00${index + 1}` : `0${index + 1}`;
     };
 
-    const loadMorePokemons = () => {
-        setVisiblePokemons((prevVisiblePokemons) => prevVisiblePokemons + 10);
+    const loadMorePokemons = async () => {
+        const additionalPokemons = await getPokemonsWithTypes(pokemonsData.length);
+        setPokemonsData((prevPokemons) => [...prevPokemons, ...additionalPokemons]);
         setButtonClicked(true);
     };
-
+    
     return (
         <Main>
             <ImgLogo src={pokemonLogo}></ImgLogo>
              <Ul>
-             {pokemons.slice(0, visiblePokemons).map((pokemon, index) => (
+             {pokemonsData.map((pokemon, index) => (
                     <Li key={index}>
                         <DivImg>
                             <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name} ></img>
                         </DivImg>
-                        <Span>N° {formatNumber(index+1)}</Span>
+                        <Span>N° {formatNumber(index)}</Span>
                         <Span>{pokemon.name}</Span>
                         <DivTypes>
-                            {types[index]?.map((type, index) => (
+                            {pokemon.types.map((type, index) => (
                                 <SpanTypes key={index} content={type}>{type}</SpanTypes>
                             ))}
                         </DivTypes>

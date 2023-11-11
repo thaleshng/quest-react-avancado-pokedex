@@ -1,38 +1,86 @@
-export async function getPokemons() {
-    const url = 'https://pokeapi.co/api/v2/pokemon/?limit=20';
-    const response = await fetch(url)
-    return await response.json()
-}
-
-async function getPokemonIds() {
-    const data = await getPokemons();
-    const pokemons = data.results;
-    const ids = [];
+// export async function getPokemonList() {
+//     const url = 'https://pokeapi.co/api/v2/pokemon/?limit=10';
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     const nextUrl = data.next
     
+//     return {
+//         nextUrl: nextUrl,
+//         results: data.results,
+//     };
+// }
 
-    for (let i = 0; i < pokemons.length; i++) {
-        const pokemonUrl = pokemons[i].url;
-        const response = await fetch(pokemonUrl);
-        const pokemonData = await response.json();  
-        const id = i + 1;
-        ids.push(id);
-    }
+// export async function getPokemonTypes(url) {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     const types = data.types.map((typeInfo) => typeInfo.type.name);
+//     return types;
+// }
 
-    return ids;
+// export async function getPokemonsWithTypes() {
+//     const { results: pokemonList } = await getPokemonList();
+
+//     const pokemonsWithTypes = await Promise.all(
+//         pokemonList.map(async (pokemon) => {
+//             const types = await getPokemonTypes(pokemon.url);
+
+//             return {
+//                 name: pokemon.name,
+//                 url: pokemon.url,
+//                 types: types,
+//             };
+//         })
+//     );
+
+//     return pokemonsWithTypes;
+// }
+
+export async function getPokemonList(url = 'https://pokeapi.co/api/v2/pokemon/?limit=10') {
+    const response = await fetch(url);
+    const data = await response.json();
+    const nextUrl = data.next;
+
+    return {
+        nextUrl: nextUrl,
+        results: data.results,
+    };
 }
 
-export async function getPokemonTypes() {
-    const id = await getPokemonIds()
-    const typesData = [];
+export async function getPokemonTypes(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    const types = data.types.map((typeInfo) => typeInfo.type.name);
+    return types;
+}
 
-    for (let i = 0; i < id.length; i++) {
-        const url = `https://pokeapi.co/api/v2/pokemon/${id[i]}/`;
-        const response = await fetch(url);
-        const data = await response.json();
+export async function getPokemonsWithTypes(startIndex = 0) {
+    let currentUrl = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=${startIndex}`;
+    let allPokemons = [];
+
+    do {
+        const { results: pokemonList, nextUrl } = await getPokemonList(currentUrl);
+
+        const remainingPokemons = 10 - allPokemons.length;
+        const pokemonsToFetch = pokemonList.slice(0, remainingPokemons);
+
+        const pokemonsWithTypes = await Promise.all(
+            pokemonsToFetch.map(async (pokemon) => {
+                const types = await getPokemonTypes(pokemon.url);
+
+                return {
+                    name: pokemon.name,
+                    url: pokemon.url,
+                    types: types,
+                };
+            })
+        );
+
+        allPokemons = allPokemons.concat(pokemonsWithTypes);
         
-        const types = data.types.map(type => type.type.name);
-        typesData.push(types);
-    }
+        currentUrl = nextUrl;
+    } while (currentUrl && allPokemons.length < 10);
 
-    return typesData;
+    return allPokemons;
 }
+
+
