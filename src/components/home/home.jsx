@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { getPokemonsWithTypes } from "../../services/poke-api"
+import { getPokemonsWithTypes } from "../../services/home/poke-api"
 import { ButtonSeeMore } from "../button/button"
 import styled from "styled-components"
 import pokemonLogo from "../../assets/images/Pokemon-Logo.png"
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
 
-export const Home = () => {
+export const PokemonsList = () => {
     const [pokemonsData, setPokemonsData] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -19,7 +20,7 @@ export const Home = () => {
     }, []);
 
     const formatNumber = (index) => {
-        return index < 10 ? `00${index + 1}` : `0${index + 1}`;
+        return index < 9 ? `00${index + 1}` : `0${index + 1}`;
     };
 
     const loadMorePokemons = async () => {
@@ -34,22 +35,24 @@ export const Home = () => {
              <Ul>
              {pokemonsData.map((pokemon, index) => (
                     <Li key={index}>
-                        <DivImg>
-                            <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name} ></img>
-                        </DivImg>
-                        <Span>N° {formatNumber(index)}</Span>
-                        <Span>{pokemon.name}</Span>
-                        <DivTypes>
-                            {pokemon.types.map((type, index) => (
-                                <SpanTypes key={index} content={type}>{type}</SpanTypes>
-                            ))}
-                        </DivTypes>
+                        <Link to={`/${pokemon.name}`} state={{ pokemon }}>
+                            <DivImg>
+                                <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name} ></img>
+                            </DivImg>
+                            <Span>N° {formatNumber(index)}</Span>
+                            <Span>{pokemon.name}</Span>
+                            <DivTypes>
+                                {pokemon.types.map((type, index) => (
+                                    <SpanTypes key={index} content={type}>{type}</SpanTypes>
+                                ))}
+                            </DivTypes>
+                        </Link>
                     </Li>
                ))}
             </Ul>
             {!buttonClicked && (
                 <ButtonSeeMore onClick={loadMorePokemons} >
-                    Carregar mais Pokémons 
+                    Load More Pokemons 
                     <FontAwesomeIcon icon={faArrowsRotate} />
                 </ButtonSeeMore>
             )}                   
@@ -71,6 +74,7 @@ const Ul = styled.ul`
 `
 
 const Li = styled.li`
+    & > a {
     display: flex;
     flex-direction: column;
     width: 180px;
@@ -80,19 +84,27 @@ const Li = styled.li`
     align-items: center;
     gap: 2px;
     background-color: #FF7B3C;
+    text-decoration: none;
+
+    &:hover {
+        transform: scale(1.05);
+        background-color: #FF7B4C;
+    }
 
     & > span:nth-child(2) {
         color: #DDDDDD;
         font-family: 'Flexo-Bold';
         margin-bottom: 3px;
-    }
+        }
 
-    & > span:nth-child(3) {
-        text-transform: capitalize;
-        font-size: 21px;
-        letter-spacing: 0.5px;
-        font-family: 'Flexo-Demi';
-        margin-bottom: 12px;
+        & > span:nth-child(3) {
+            text-transform: capitalize;
+            font-size: 21px;
+            letter-spacing: 0.5px;
+            font-family: 'Flexo-Demi';
+            margin-bottom: 12px;
+            color: #000000;
+        }
     }
 `
 
@@ -130,12 +142,8 @@ const DivTypes = styled.div`
 `
 
 const SpanTypes = styled.span`
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 1px 20px;
     border-radius: 3px;
-    margin: 0 auto;
     font-size: 13px;
     font-family: 'Flexo-Medium';
     text-transform: capitalize;

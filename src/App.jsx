@@ -1,15 +1,15 @@
-import { Home } from './components/home/home';
 import { createGlobalStyle } from 'styled-components';
 import backgroundImage from './assets/images/pokemon-sun.jpg';
 import flexoBold from './assets/fonts/Flexo-Bold.ttf'
 import flexoDemi from './assets/fonts/Flexo-Demi.ttf'
 import flexoMedium from './assets/fonts/Flexo-Medium.ttf'
+import { AppRoutes } from './pages/routes';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Home />
+      <AppRoutes />
     </>
   );
 }
@@ -20,7 +20,6 @@ const GlobalStyle = createGlobalStyle`
  * {
   margin: 0;
   padding: 0;
-  // box-sizing: border-box;
   list-style-type: none;
  }
 
@@ -41,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
 
  body {
   max-width: 1280px;
+  height: 100vh;
   margin: 0 auto;
   background: url(${backgroundImage}) center center no-repeat;
   background-size: cover;
