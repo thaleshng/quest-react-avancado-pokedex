@@ -12,7 +12,7 @@
 
 import { Link, useParams, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components";
 
@@ -20,14 +20,18 @@ export const PokemonDetails = () => {
 
     const { state } = useLocation();
     const pokemonInfos = state && state.pokemon;
+
     const { pokemonName } = useParams()
+
     const [pokemonDetails, setPokemonDetails] = useState({
         abilities: [],
         types: [],
         moves: [],
-      });
-    const [ abilityDetails, setAbilityDetails ] = useState([]);
+    });
+
+    const [abilityDetails, setAbilityDetails] = useState([]);
     const [typeDetails, setTypeDetails] = useState([]);
+    const [activeIndex, setActiveIndex] = useState(null);
 
     const url = pokemonInfos.url
     const urlParts = url.split("/");
@@ -38,16 +42,16 @@ export const PokemonDetails = () => {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/?language=en`);
             const data = await response.json();
 
-            setPokemonDetails ({
+            setPokemonDetails({
                 abilities: data.abilities,
                 types: data.types,
                 moves: data.moves
             })
         };
         fetchData();
-      }, [pokemonName]);
+    }, [pokemonName]);
 
-      useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             if (pokemonDetails.abilities) {
                 const abilityDetails = await Promise.all(
@@ -56,39 +60,43 @@ export const PokemonDetails = () => {
                         const data = await response.json();
                         return data;
                     }))
-                    setAbilityDetails(abilityDetails)
-                }    
+                setAbilityDetails(abilityDetails)
+            }
         }
         fetchData()
-      }, [pokemonDetails.abilities])
+    }, [pokemonDetails.abilities])
 
-      useEffect(() => {
+    useEffect(() => {
         const fetchTypeData = async () => {
-          if (pokemonDetails.types) {
-            const typeDetails = await Promise.all(
-              pokemonDetails.types.map(async (type) => {
-                const response = await fetch(
-                  `https://pokeapi.co/api/v2/type/${type.type.name}/?language=en`
+            if (pokemonDetails.types) {
+                const typeDetails = await Promise.all(
+                    pokemonDetails.types.map(async (type) => {
+                        const response = await fetch(
+                            `https://pokeapi.co/api/v2/type/${type.type.name}/?language=en`
+                        );
+                        const data = await response.json();
+                        return data;
+                    })
                 );
-                const data = await response.json();
-                return data;
-              })
-            );
-            setTypeDetails(typeDetails);
-          }
+                setTypeDetails(typeDetails);
+            }
         };
-    
-        fetchTypeData();
-      }, [pokemonDetails.types]);
 
-      const formatNumber = (id) => {
+        fetchTypeData();
+    }, [pokemonDetails.types]);
+
+    const formatNumber = (id) => {
         return id <= 9 ? `00${id}` : `0${id}`;
     };
 
-    console.log(abilityDetails)
+    const toggleVisibility = (index) => {
+        setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    };
+
+    // console.log(pokemonDetails.moves[1].move.name)
 
     return (
-        <DivContainer>  
+        <DivContainer>
             <DivLink>
                 <Link to={`/`}>
                     <FontAwesomeIcon icon={faHouse} />
@@ -100,28 +108,51 @@ export const PokemonDetails = () => {
                     <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt="" />
                     <DivTypes>
                         {typeDetails.map((type, index) => (
-                        <SpanTypes key={index} content={type.name}>{type.name}</SpanTypes>
-                    ))}
+                            <SpanTypes key={index} content={type.name}>{type.name}</SpanTypes>
+                        ))}
                     </DivTypes>
                 </SectionGeneralInfos>
                 <SectionAbilitiesAndMoves>
                     <DivAbilities>
-                        <Ul>
+                        <UlAbilities>
                             <h2>Abilities</h2>
                             {abilityDetails.map((ability, index) => {
-                                const nomeDaHabilidade = ability.name.replace(/-/g, ' ');
+                                const abilityName = ability.name.replace(/-/g, ' ');
 
                                 const englishSunAndMoonFlavorText = ability.flavor_text_entries.find(entry => entry.language.name === "en" && entry.version_group.name === "sun-moon")
 
                                 return (
-                                    <Li key={index}>
-                                    <h2>{nomeDaHabilidade}</h2>
-                                    <p>{englishSunAndMoonFlavorText ? englishSunAndMoonFlavorText.flavor_text : "Efeito não disponível em inglês"}</p>
-                                </Li>
+                                    <LiAbilities key={index}>
+                                        <h2>
+                                            {abilityName}
+                                            <FontAwesomeIcon
+                                                icon={faCircleInfo}
+                                                onClick={() => toggleVisibility(index)} />
+                                        </h2>
+                                        <AbilityDescription isVisible={index === activeIndex}>
+                                            {englishSunAndMoonFlavorText ? englishSunAndMoonFlavorText.flavor_text : "Efeito não disponível em inglês"}
+                                        </AbilityDescription>
+                                    </LiAbilities>
                                 )
-                        })}
-                        </Ul>
+                            })}
+                        </UlAbilities>
                     </DivAbilities>
+                    <DivMoves>
+                        <h2>Moves</h2>
+
+                        <UlMoves>
+
+                            {pokemonDetails.moves.map((move, index) => {
+                                const moveName = move.move.name.replace(/-/g, ' ');
+
+                                return (
+                                    <LiMoves key={index}>
+                                        <p>{moveName}</p>
+                                    </LiMoves>
+                                )
+                            })}
+                        </UlMoves>
+                    </DivMoves>
                 </SectionAbilitiesAndMoves>
             </Main>
         </DivContainer>
@@ -151,6 +182,7 @@ const H1 = styled.h1`
     align-self: center;
     text-transform: capitalize;
     font-family: 'Flexo-Medium';
+    margin-bottom: 10px;
     
     & > span {
         color: #888888;
@@ -159,8 +191,8 @@ const H1 = styled.h1`
 `
 
 const Main = styled.main`
-background-color: rgba(255, 123, 60, 0.8);
-    height: 80vh;
+    background-color: rgba(255, 123, 60, 0.8);
+    height: 85vh;
     display: flex;
 `
 const SectionGeneralInfos = styled.section`
@@ -175,6 +207,7 @@ const Img = styled.img`
     width: 300px;
     height: 300px;
     padding: 25px;
+    margin: 15px;
     background-color: rgba(255, 160, 122, 0.8);
     border-radius: 15px;
     align-self: center;
@@ -231,29 +264,105 @@ const SectionAbilitiesAndMoves = styled.section`
 
 const DivAbilities = styled.div`
     display: flex;
-    padding: 10px;
+    margin: 15px;
 `
 
-const Ul = styled.ul`
-    height: 100%;
+const UlAbilities = styled.ul`
     background-color: rgba(255, 160, 122, 0.8);
-    padding: 15px;
+    padding: 15px 0;
+    width: 100%;
 
     & > h2 {
         font-family: 'Flexo-Bold';
         text-align: center;
+        border-bottom: 2px solid rgba(255, 123, 60, 0.8);
+    }
+
+    & svg {
+        margin-left: 5px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+
+    & svg:hover {
+        color: #FF6B4E;
     }
 `
 
-const Li = styled.li`
+const LiAbilities = styled.li`
     font-family: 'Flexo-Medium';
     padding: 5px;
     
     & > h2 {
         margin-bottom: 5px;
         font-family: 'Flexo-Demi';
-        font-size: 20px;
+        font-size: 18px;
         text-transform: capitalize;
+        text-align: center;
         color: #FFF;
     }
-` 
+`
+
+const AbilityDescription = styled.p`
+    display: ${props => props.isVisible ? 'block' : 'none'};
+    text-align: center;
+`;
+
+const DivMoves = styled.div`
+    display: flex;
+    margin: 15px; 
+    min-height: 250px;
+    background-color: rgba(255, 160, 122, 0.8);
+    flex-direction: column;
+
+    & > h2 {
+        text-align: center;
+        font-family: 'Flexo-Bold';
+        margin-top: 15px;
+        border-bottom: 2px solid rgba(255, 123, 60, 0.8);
+    }
+`
+
+const UlMoves = styled.ul`
+    background-color: rgba(255, 160, 122, 0.8);
+    padding: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: #FF6900;
+        border-radius: 5px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background-color: #DDD;
+        border-radius: 5px;
+    }
+`
+
+const LiMoves = styled.li`    
+    flex-basis: calc(20% - 10px);
+    margin: 5px;
+
+    & > p {
+        text-transform: capitalize;
+        font-family: 'Flexo-Medium';
+        background-color: rgba(255, 123, 60, 0.8);
+        padding: 8px;
+        text-align: center;
+        border-radius: 5px;
+        transition: 0.3s ease-in-out;
+    }
+
+    & > p:hover {
+        background-color: #FF7B4C;
+    }
+`
+
