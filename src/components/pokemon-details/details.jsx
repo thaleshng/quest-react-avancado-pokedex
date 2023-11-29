@@ -329,6 +329,7 @@ const UlMoves = styled.ul`
     background-color: rgba(255, 160, 122, 0.8);
     padding: 10px;
     flex-wrap: wrap;
+    // width: 800px;
     display: flex;
     overflow-y: auto;
 
@@ -350,6 +351,7 @@ const UlMoves = styled.ul`
 const LiMoves = styled.li`    
     flex-basis: calc(20% - 10px);
     margin: 5px;
+    min-width: 145px;
 
     & > p {
         text-transform: capitalize;
