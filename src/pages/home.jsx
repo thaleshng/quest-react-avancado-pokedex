@@ -1,4 +1,4 @@
-import { PokemonsList } from "../components/home/home";
+import { PokemonsList } from "../components/home/index";
 
 export const Home = () => {
     return (

@@ -21,7 +21,7 @@ export const ButtonSeeMore = styled.button`
     cursor: pointer;
 
     &:hover {
-        background-color: #FF7B3C;
+        background-color: ${props => props.theme['--primary-bg-color']};
         color: #DDDDDD;
 
         > svg {

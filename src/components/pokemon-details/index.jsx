@@ -1,25 +1,16 @@
-/** 
-
-* * TODO 1: dar fetch nas infos dos pokemons recebendo o nome do pokemon que for clicado na home retornando "Types", "Abilities" e "Moves"
-* * TODO 2: retonar o nome da habilidade do pokemon pra fazer outro fetch da descrição da habilidade | pegar "results.name" e "results.effect_entries.short_effect" Obs.: ver possibilidade de pegar a propriedade "flavor_text"
-* TODO 3: retornar o array de moves do pokemon clicado e ver a possibilidade de pegar mais infos se não for travar o site fazendo as requisições | pegar "results.name"; "results.effect_entries.short_effect" e "results.type.name"
-* * TODO 4: o nome já vai vir ao clicar
-* TODO 5: a imagem vai ser usada url com o nome do pokemon que vier
-* TODO 6: pegar os tipos do mesmo jeito que na Home
-* ! CONFERIR A QUANTIDADE DE FETCHS PARA EVITAR TRAVAMENTO NA PÁGINA
-
-*/
-
 import { Link, useParams, useLocation } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../../contexts/theme-context"
 import { faHouse, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components";
 
-export const PokemonDetails = () => {
+export const GetPokemonDetails = () => {
 
     const { state } = useLocation();
     const pokemonInfos = state && state.pokemon;
+
+    const { theme } = useContext(ThemeContext)
 
     const { pokemonName } = useParams()
 
@@ -93,19 +84,17 @@ export const PokemonDetails = () => {
         setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
-    // console.log(pokemonDetails.moves[1].move.name)
-
     return (
         <DivContainer>
-            <DivLink>
+            <DivLink theme={theme}>
                 <Link to={`/`}>
                     <FontAwesomeIcon icon={faHouse} />
                 </Link>
             </DivLink>
             <H1>{pokemonName} <span>{`N° ${formatNumber(pokemonId)}`}</span></H1>
-            <Main>
-                <SectionGeneralInfos>
-                    <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt="" />
+            <Main theme={theme}>
+                <SectionGeneralInfos theme={theme}>
+                    <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt=""  theme={theme}/>
                     <DivTypes>
                         {typeDetails.map((type, index) => (
                             <SpanTypes key={index} content={type.name}>{type.name}</SpanTypes>
@@ -114,7 +103,7 @@ export const PokemonDetails = () => {
                 </SectionGeneralInfos>
                 <SectionAbilitiesAndMoves>
                     <DivAbilities>
-                        <UlAbilities>
+                        <UlAbilities theme={theme}>
                             <h2>Abilities</h2>
                             {abilityDetails.map((ability, index) => {
                                 const abilityName = ability.name.replace(/-/g, ' ');
@@ -137,16 +126,14 @@ export const PokemonDetails = () => {
                             })}
                         </UlAbilities>
                     </DivAbilities>
-                    <DivMoves>
+                    <DivMoves theme={theme}>
                         <h2>Moves</h2>
 
-                        <UlMoves>
-
+                        <UlMoves theme={theme}>
                             {pokemonDetails.moves.map((move, index) => {
                                 const moveName = move.move.name.replace(/-/g, ' ');
-
                                 return (
-                                    <LiMoves key={index}>
+                                    <LiMoves key={index} theme={theme}> 
                                         <p>{moveName}</p>
                                     </LiMoves>
                                 )
@@ -160,16 +147,15 @@ export const PokemonDetails = () => {
 }
 
 const DivLink = styled.div`
-    width: 28px;
-    height: 35px;
+    height: 20px;
     padding: 15px 0;
 
     & > a {
         font-size: 25px;
-        color: #000000
+        color: ${props => props.theme['--general-color']};
     }
 
-    &:hover > a {
+    & > a:hover {
         font-size: 26px;
     }
 `
@@ -191,7 +177,7 @@ const H1 = styled.h1`
 `
 
 const Main = styled.main`
-    background-color: rgba(255, 123, 60, 0.8);
+    background-color: ${props => props.theme['--primary-bg-color-opacity']};
     height: 85vh;
     display: flex;
 `
@@ -201,14 +187,14 @@ const SectionGeneralInfos = styled.section`
     justify-content: space-evenly;
     width: 450px;
     align-items: center;
-    border-right: 1px solid rgba(255, 123, 60, 0.8);
+    border-right: 1px solid ${props => props.theme['--border-color']};
 `
 const Img = styled.img`
     width: 300px;
     height: 300px;
     padding: 25px;
     margin: 15px;
-    background-color: rgba(255, 160, 122, 0.8);
+    background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     border-radius: 15px;
     align-self: center;
 `
@@ -268,14 +254,14 @@ const DivAbilities = styled.div`
 `
 
 const UlAbilities = styled.ul`
-    background-color: rgba(255, 160, 122, 0.8);
+    background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     padding: 15px 0;
     width: 100%;
 
     & > h2 {
         font-family: 'Flexo-Bold';
         text-align: center;
-        border-bottom: 2px solid rgba(255, 123, 60, 0.8);
+        border-bottom: 2px solid ${props => props.theme['--border-color']};
     }
 
     & svg {
@@ -287,7 +273,7 @@ const UlAbilities = styled.ul`
     }
 
     & svg:hover {
-        color: #FF6B4E;
+        color: ${props => props.theme['--ability-info-color-hover']};
     }
 `
 
@@ -314,19 +300,19 @@ const DivMoves = styled.div`
     display: flex;
     margin: 15px; 
     min-height: 250px;
-    background-color: rgba(255, 160, 122, 0.8);
+    background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     flex-direction: column;
 
     & > h2 {
         text-align: center;
         font-family: 'Flexo-Bold';
         margin-top: 15px;
-        border-bottom: 2px solid rgba(255, 123, 60, 0.8);
+        border-bottom: 2px solid ${props => props.theme['--border-color']};
     }
 `
 
 const UlMoves = styled.ul`
-    background-color: rgba(255, 160, 122, 0.8);
+    background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     padding: 10px;
     flex-wrap: wrap;
     // width: 800px;
@@ -338,7 +324,7 @@ const UlMoves = styled.ul`
     }
     
     &::-webkit-scrollbar-thumb {
-        background-color: #FF6900;
+        background-color: ${props => props.theme['--scrollbar-color']};
         border-radius: 5px;
     }
     
@@ -356,15 +342,16 @@ const LiMoves = styled.li`
     & > p {
         text-transform: capitalize;
         font-family: 'Flexo-Medium';
-        background-color: rgba(255, 123, 60, 0.8);
+        background-color: ${props => props.theme['--primary-bg-color-opacity']};
         padding: 8px;
         text-align: center;
         border-radius: 5px;
         transition: 0.3s ease-in-out;
+        color: ${props => props.theme['--general-color']};
     }
 
     & > p:hover {
-        background-color: #FF7B4C;
+        background-color: ${props => props.theme['--primary-bg-color-hover']};
     }
 `
 

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { ThemeContext } from "../../contexts/theme-context"
 import { getPokemonsWithTypes } from "../../services/home/poke-api"
 import { ButtonSeeMore } from "../button/button"
 import styled from "styled-components"
@@ -10,6 +11,7 @@ import { Link } from "react-router-dom"
 export const PokemonsList = () => {
     const [pokemonsData, setPokemonsData] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
+    const { theme } = useContext(ThemeContext)
 
     useEffect(() => {
         async function fetchData() {
@@ -32,11 +34,11 @@ export const PokemonsList = () => {
     return (
         <Main>
             <ImgLogo src={pokemonLogo}></ImgLogo>
-             <Ul>
-             {pokemonsData.map((pokemon, index) => (
-                    <Li key={index}>
+            <Ul>
+            {pokemonsData.map((pokemon, index) => (
+                    <Li key={index} theme={theme}>
                         <Link to={`/${pokemon.name}`} state={{ pokemon }}>
-                            <DivImg>
+                            <DivImg theme={theme}>
                                 <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name} ></img>
                             </DivImg>
                             <Span>N° {formatNumber(index)}</Span>
@@ -48,10 +50,10 @@ export const PokemonsList = () => {
                             </DivTypes>
                         </Link>
                     </Li>
-               ))}
+            ))}
             </Ul>
             {!buttonClicked && (
-                <ButtonSeeMore onClick={loadMorePokemons} >
+                <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
                     Load More Pokemons 
                     <FontAwesomeIcon icon={faArrowsRotate} />
                 </ButtonSeeMore>
@@ -83,12 +85,12 @@ const Li = styled.li`
     border-radius: 15px;
     align-items: center;
     gap: 2px;
-    background-color: #FF7B3C;
+    background-color: ${props => props.theme['--primary-bg-color']};
     text-decoration: none;
 
     &:hover {
         transform: scale(1.05);
-        background-color: #FF7B4C;
+        background-color: ${props => props.theme['--primary-bg-color-hover']};
     }
 
     & > span:nth-child(2) {
@@ -103,7 +105,7 @@ const Li = styled.li`
             letter-spacing: 0.5px;
             font-family: 'Flexo-Demi';
             margin-bottom: 12px;
-            color: #000000;
+            color: ${props => props.theme['--general-color']};
         }
     }
 `
@@ -115,7 +117,7 @@ const DivImg = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 15px;
-    background-color: #FFA07A;
+    background-color: ${props => props.theme['--secundary-bg-color']};
 `
 
 const Span = styled.span`
