@@ -64,4 +64,5 @@ const GlobalStyle = createGlobalStyle`
   background-size: cover;
   background-attachment: fixed;
  }
+
 `

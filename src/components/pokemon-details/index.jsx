@@ -315,7 +315,6 @@ const UlMoves = styled.ul`
     background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     padding: 10px;
     flex-wrap: wrap;
-    // width: 800px;
     display: flex;
     overflow-y: auto;
 
@@ -346,11 +345,11 @@ const LiMoves = styled.li`
         padding: 8px;
         text-align: center;
         border-radius: 5px;
-        transition: 0.3s ease-in-out;
         color: ${props => props.theme['--general-color']};
     }
 
     & > p:hover {
+        transition: 0.3s ease-in-out;
         background-color: ${props => props.theme['--primary-bg-color-hover']};
     }
 `

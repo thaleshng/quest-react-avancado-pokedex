@@ -13,7 +13,8 @@ export const themes = {
         '--secundary-bg-color-opacity': "rgba(255, 160, 122, 0.8)",
         '--ability-info-color-hover': "#FF6B4E",
         '--scrollbar-color': "#FF6900",
-        '--general-color': "#000000"
+        '--general-color': "#000000",
+        '--bg-color-input-theme': "#FF8C7B",
     },
     moon: {
         '--bg-image': `url(${backgroundImageMoon})`,
@@ -25,7 +26,8 @@ export const themes = {
         '--secundary-bg-color-opacity': "rgba(51, 51, 100, 0.8)",
         '--ability-info-color-hover': "#3C64C8",
         '--scrollbar-color': "#0C052A",
-        '--general-color': "#FFFFFF"
+        '--general-color': "#FFFFFF",
+        '--bg-color-input-theme': "#333384"
     }
 }
 

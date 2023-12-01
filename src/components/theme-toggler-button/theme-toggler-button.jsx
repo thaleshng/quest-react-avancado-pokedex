@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { ThemeContext, themes } from "../../contexts/theme-context"
-import { Button } from "../button/button"
+// import { ThemeButton } from "../button/button"
+import { ThemeInput } from "../button/input"
 
 export const ThemeTogglerButton = () => {
     
@@ -8,7 +9,7 @@ export const ThemeTogglerButton = () => {
     
     return (
         <>
-            <Button theme={theme} onClick={() => setTheme(theme === themes.sun ? themes.moon : themes.sun)}>Clique aqui</Button>
+            <ThemeInput type="checkbox" role="switch" checked={theme === themes.moon} theme={theme} onClick={() => setTheme(theme === themes.sun ? themes.moon : themes.sun)} />
         </>
     )
 }
