@@ -35,6 +35,6 @@ export const ThemeInput = styled.input`
     content: url(${moonIcon}); // Utiliza um ícone como conteúdo
     transform: translateX(22.5px);
     top: -5px;
-    left: -8px;
+    left: 0;
   }
 `;

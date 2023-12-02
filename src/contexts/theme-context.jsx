@@ -14,7 +14,7 @@ export const themes = {
         '--ability-info-color-hover': "#FF6B4E",
         '--scrollbar-color': "#FF6900",
         '--general-color': "#000000",
-        '--bg-color-input-theme': "#FF8C7B",
+        '--bg-color-input-theme': "#FF7B3C",
     },
     moon: {
         '--bg-image': `url(${backgroundImageMoon})`,
