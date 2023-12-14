@@ -68,6 +68,27 @@ const Main = styled.main`
     flex-direction: column;
     align-items: center;
 `
+
+const ImgLogo = styled.img`
+    max-width: 25%;
+    max-height: 25%;
+
+    @media (max-width: 475px) {
+        max-width: 45%;
+        max-height: 45%;
+    }
+
+    @media (max-width: 375px) {
+        max-width: 50%;
+        max-height: 50%;
+    }
+
+    @media (max-width: 320px) {
+        max-width: 60%;
+        max-height: 60%;
+    }
+`
+
 const Ul = styled.ul`
     display: flex;
     flex-wrap: wrap;
@@ -124,10 +145,7 @@ const Span = styled.span`
     align-self: flex-start;
 `
 
-const ImgLogo = styled.img`
-    max-width: 25%;
-    max-height: 25%;
-`
+
 
 const DivTypes = styled.div`
     width: 100%;

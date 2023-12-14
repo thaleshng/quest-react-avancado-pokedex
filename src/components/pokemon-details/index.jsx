@@ -149,6 +149,7 @@ export const GetPokemonDetails = () => {
 const DivLink = styled.div`
     height: 20px;
     padding: 15px 0;
+    margin-left: 15px;
 
     & > a {
         font-size: 25px;
@@ -162,6 +163,7 @@ const DivLink = styled.div`
 const DivContainer = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 5px; 
 `
 
 const H1 = styled.h1`
@@ -180,6 +182,12 @@ const Main = styled.main`
     background-color: ${props => props.theme['--primary-bg-color-opacity']};
     height: 85vh;
     display: flex;
+    
+    @media (max-width: 650px) {
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
 `
 const SectionGeneralInfos = styled.section`
     display: flex;
@@ -187,7 +195,16 @@ const SectionGeneralInfos = styled.section`
     justify-content: space-evenly;
     width: 450px;
     align-items: center;
-    border-right: 1px solid ${props => props.theme['--border-color']};
+
+    @media (min-width: 651px) {
+        border-right: 1px solid ${props => props.theme['--border-color']};
+    }
+
+    @media (max-width: 650px) {
+        border-bottom: 2px solid ${props => props.theme['--border-color']};
+        width: 100%;
+        padding-bottom: 15px;
+    }
 `
 const Img = styled.img`
     width: 300px;
@@ -197,11 +214,35 @@ const Img = styled.img`
     background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     border-radius: 15px;
     align-self: center;
+
+    @media (max-width: 650px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media (max-width: 390px) {
+        width: 280px;
+        height: 280px;
+    }
+
+    @media (max-width: 360px) {
+        width: 260px;
+        height: 260px;
+    }
+
+    @media (max-width: 340px) {
+        width: 240px;
+        height: 240px;
+    }
 `
 
 const DivTypes = styled.div`
     display: flex;
     gap: 0 40px;
+
+    @media (max-width: 650px) {
+        padding: 25px 0;
+    }
 `
 
 const SpanTypes = styled.span`
@@ -352,5 +393,32 @@ const LiMoves = styled.li`
         transition: 0.3s ease-in-out;
         background-color: ${props => props.theme['--primary-bg-color-hover']};
     }
-`
 
+    @media (max-width: 1223px) {
+        flex-basis: calc(25% - 10px);
+    }
+
+    @media (max-width: 1068px) {
+        flex-basis: calc(33% - 10px);
+    }
+
+    @media (max-width: 920px) {
+        flex-basis: calc(50% - 10px);
+    }
+
+    @media (max-width: 758px) {
+        flex-basis: calc(100% - 10px);
+    }
+
+    @media (max-width: 650px) {
+        flex-basis: calc(33% - 10px);
+    }
+
+    @media (max-width: 530px) {
+        flex-basis: calc(50% - 10px);
+    }
+
+    @media (max-width: 390px) {
+        flex-basis: calc(100% - 10px);
+    }
+`

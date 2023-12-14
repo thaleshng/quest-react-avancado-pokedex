@@ -16,15 +16,23 @@ export const ThemeInput = styled.input`
   border: none;
   width: 45px;
   height: 20px;
-  background: ${(props) => (props.checked ? props.theme['--bg-color-input-theme'] : props.theme['--bg-color-input-theme'])};
+  background: ${(props) => props.theme['--bg-color-input-theme']};
   border-radius: 10px;
   position: absolute;
   right: 90px;
-  top: 15px;
+  top: 22.5px;
   cursor: pointer;
 
+  @media (max-width: 920px) {
+    right: 25px;
+}
+
+  @media (max-width: 650px) {
+    right: 25px;
+}
+
   &:before {
-    content: url(${sunIcon}); // Utiliza um ícone como conteúdo
+    content: url(${sunIcon});
     position: absolute;
     top: -5px;
     left: -5px;
@@ -32,7 +40,7 @@ export const ThemeInput = styled.input`
   }
 
   &:checked:before {
-    content: url(${moonIcon}); // Utiliza um ícone como conteúdo
+    content: url(${moonIcon});
     transform: translateX(22.5px);
     top: -5px;
     left: 0;
