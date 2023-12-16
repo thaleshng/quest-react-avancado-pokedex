@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/quest-react-avancado-pokedex/static/js/main.7edfe8b5.js",
+    "main.js": "/quest-react-avancado-pokedex/static/js/main.7cfa8efd.js",
     "static/js/787.e195eb9a.chunk.js": "/quest-react-avancado-pokedex/static/js/787.e195eb9a.chunk.js",
     "static/media/pokemon-moon.png": "/quest-react-avancado-pokedex/static/media/pokemon-moon.00cc39bcb75cca88e6b8.png",
     "static/media/pokemon-sun.jpg": "/quest-react-avancado-pokedex/static/media/pokemon-sun.fe5a8e1374f14aec4b6a.jpg",
@@ -9,10 +9,10 @@
     "static/media/Flexo-Bold.ttf": "/quest-react-avancado-pokedex/static/media/Flexo-Bold.d4995f80e7a6c2b5d734.ttf",
     "static/media/Flexo-Medium.ttf": "/quest-react-avancado-pokedex/static/media/Flexo-Medium.6de52a60d23cf5983609.ttf",
     "index.html": "/quest-react-avancado-pokedex/index.html",
-    "main.7edfe8b5.js.map": "/quest-react-avancado-pokedex/static/js/main.7edfe8b5.js.map",
+    "main.7cfa8efd.js.map": "/quest-react-avancado-pokedex/static/js/main.7cfa8efd.js.map",
     "787.e195eb9a.chunk.js.map": "/quest-react-avancado-pokedex/static/js/787.e195eb9a.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.7edfe8b5.js"
+    "static/js/main.7cfa8efd.js"
   ]
 }
