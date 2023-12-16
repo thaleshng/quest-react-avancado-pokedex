@@ -4,6 +4,7 @@ import backgroundImageMoon from '../assets/images/pokemon-moon.png'
 
 export const themes = {
     sun: {
+        title: "sun",
         '--bg-image': `url(${backgroundImageSun})`,
         '--primary-bg-color': "#FF7B3C",
         '--primary-bg-color-opacity': "rgba(255, 123, 60, 0.8)",
@@ -17,6 +18,7 @@ export const themes = {
         '--bg-color-input-theme': "#FF7B3C",
     },
     moon: {
+        title: "moon",
         '--bg-image': `url(${backgroundImageMoon})`,
         '--primary-bg-color': "#1F1F3A",
         '--primary-bg-color-opacity': "rgba(31, 31, 58, 0.8)",

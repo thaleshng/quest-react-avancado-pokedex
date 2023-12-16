@@ -15,7 +15,7 @@ export const ThemeTogglerButton = () => {
     }, [theme]);
 
     const toggleTheme = () => {
-        const newTheme = theme === themes.sun ? themes.moon : themes.sun;
+        const newTheme = theme.title === "sun" ? themes.moon : themes.sun;
         setTheme(newTheme);
         localStorage.setItem("theme", JSON.stringify(newTheme));
     };
