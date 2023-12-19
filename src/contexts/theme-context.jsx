@@ -16,6 +16,8 @@ export const themes = {
         '--scrollbar-color': "#FF6900",
         '--general-color': "#000000",
         '--bg-color-input-theme': "#FF7B3C",
+        '--bg-color-filter': "rgba(300, 127, 80, 0.7)",
+        '--color-filter-hover': "#FFFFFF"
     },
     moon: {
         title: "moon",
@@ -29,7 +31,9 @@ export const themes = {
         '--ability-info-color-hover': "#3C64C8",
         '--scrollbar-color': "#0C052A",
         '--general-color': "#FFFFFF",
-        '--bg-color-input-theme': "#333384"
+        '--bg-color-input-theme': "#333384",
+        '--bg-color-filter': "rgba(51, 51, 100, 0.9)",
+        '--color-filter-hover': "#777"
     }
 }
 

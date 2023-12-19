@@ -5,12 +5,18 @@ import { ButtonSeeMore } from "../button/button"
 import styled from "styled-components"
 import pokemonLogo from "../../assets/images/Pokemon-Logo.png"
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons"
+import { faFilter } from "@fortawesome/free-solid-svg-icons"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
+import { Filter } from "../filter/filter"
 
 export const PokemonsList = () => {
     const [pokemonsData, setPokemonsData] = useState([]);
     const [buttonClicked, setButtonClicked] = useState(false);
+    const [showFilter, setShowFilter] = useState(false);
+    const [icon, setIcon] = useState(faFilter);
+    const [selectedTypes, setSelectedTypes] = useState([]);
     const { theme } = useContext(ThemeContext)
 
     useEffect(() => {
@@ -21,6 +27,19 @@ export const PokemonsList = () => {
         fetchData();
     }, []);
 
+    const toggleFilter = () => {
+        setShowFilter((prevShowFilter) => !prevShowFilter);
+    };
+
+    const filterPokemonsByType = () => {
+        // Filtrar pokémons com base nos tipos selecionados
+        const filteredPokemons = pokemonsData.filter((pokemon) => {
+            return selectedTypes.length === 0 || selectedTypes.every((type) => pokemon.types.includes(type));
+        });
+
+        return filteredPokemons;
+    };
+
     const formatNumber = (index) => {
         return index < 9 ? `00${index + 1}` : `0${index + 1}`;
     };
@@ -30,36 +49,49 @@ export const PokemonsList = () => {
         setPokemonsData((prevPokemons) => [...prevPokemons, ...additionalPokemons]);
         setButtonClicked(true);
     };
+
+    const changeIcon = () => {
+        // Mudar o ícone ao clicar
+        setIcon(icon === faFilter ? faXmark : faFilter);
+    };
     
     return (
         <Main>
-            <ImgLogo src={pokemonLogo}></ImgLogo>
+            <ImgLogo src={pokemonLogo} />
+            <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
+            {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />}
             <Ul>
-            {pokemonsData.map((pokemon, index) => (
-                    <Li key={index} theme={theme}>
-                        <Link to={`/${pokemon.name}`} state={{ pokemon }}>
-                            <DivImg theme={theme}>
-                                <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name} ></img>
-                            </DivImg>
-                            <Span>N° {formatNumber(index)}</Span>
-                            <Span>{pokemon.name}</Span>
-                            <DivTypes>
-                                {pokemon.types.map((type, index) => (
-                                    <SpanTypes key={index} content={type}>{type}</SpanTypes>
-                                ))}
-                            </DivTypes>
-                        </Link>
-                    </Li>
-            ))}
+                {selectedTypes.length > 0 && filterPokemonsByType().length === 0 ? (
+                    <LiTypeNone theme={theme}>
+                        <p>No Pokémon found with the selected types.</p>
+                    </LiTypeNone>
+                ) : (
+                    filterPokemonsByType().map((pokemon, index) => (
+                        <Li key={index} theme={theme}>
+                            <Link to={`/${pokemon.name}`} state={{ pokemon }}>
+                                <DivImg theme={theme}>
+                                    <img src={`https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`} alt={pokemon.name}></img>
+                                </DivImg>
+                                <Span>N° {formatNumber(index)}</Span>
+                                <Span>{pokemon.name}</Span>
+                                <DivTypes>
+                                    {pokemon.types.map((type, index) => (
+                                        <SpanTypes key={index} content={type}>{type}</SpanTypes>
+                                    ))}
+                                </DivTypes>
+                            </Link>
+                        </Li>
+                    ))
+                )}
             </Ul>
             {!buttonClicked && (
                 <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
-                    Load More Pokemons 
+                    Load More Pokemons
                     <FontAwesomeIcon icon={faArrowsRotate} />
                 </ButtonSeeMore>
-            )}                   
+            )}
         </Main>
-    )
+    );
 }
 
 const Main = styled.main`
@@ -89,17 +121,91 @@ const ImgLogo = styled.img`
     }
 `
 
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+    font-size: ${({ icon }) => (icon === faXmark ? '28px' : '20px')};
+    align-self: start;
+    margin: ${({ icon }) => (icon === faXmark ? '0 0 0px 60px' : '0 0 10px 60px')};
+    cursor: pointer;
+    transition: transform, color 0.5s ease;
+    color: ${({ icon }) => (icon !== faXmark ? props => props.theme['--general-color'] : props => props.theme['--general-color'])};
+
+    &:hover {
+        transform: ${({ icon }) => (icon === faXmark ? 'none' : 'scale(1.15)')};
+        color: ${({ icon }) => (icon === faXmark ? props => props.theme['--color-filter-hover'] : "none")};
+    }
+
+    @media (max-width: 1280px) {
+        margin: 0 0 10px 55px;
+    }
+
+    @media (max-width: 1024px) {
+        margin: 0 0 10px 45px;
+    }
+
+    @media (max-width: 768px) {
+        margin: 0 0 10px 35px;
+    }
+
+    @media (max-width: 425px) {
+        margin: 0 0 10px 90px;
+    }
+
+    @media (max-width: 375px) {
+        margin: 0 0 10px 70px;
+    }
+
+    @media (max-width: 320px) {
+        margin: 0 0 10px 40px;
+    }
+`
+
 const Ul = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
+    max-width: 1280px;
+`
+
+const LiTypeNone = styled.li`
+    background-color: #fff;
+    height: 40vh;
+    background: ${props => props.theme['--primary-bg-color-opacity']};
+    color: ${props => props.theme['--general-color']};
+    display: flex;
+    align-items: center;
+
+    & > p {
+        width: 1120px;
+        text-align: center;
+        font-family: 'Flexo-Demi';
+        font-size: 18px;
+        color: ${props => props.theme['--general-color']};
+
+        @media (max-width: 2560px) {
+            font-size: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            width: 890px;
+        }
+
+        @media (max-width: 768px) {
+            width: 650px;
+        }
+
+        @media (max-width: 425px) {
+            width: 200px;
+            font-size: 16px;
+        }
+    } 
 `
 
 const Li = styled.li`
     & > a {
     display: flex;
     flex-direction: column;
+    align-self: center;
     width: 180px;
     height: 240px;
     padding: 10px;
