@@ -148,6 +148,11 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
 
     @media (max-width: 425px) {
         margin: 0 0 10px 90px;
+        color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
+    }
+
+    @media (max-width: 390px) {
+        margin: 0 0 10px 75px;
     }
 
     @media (max-width: 375px) {

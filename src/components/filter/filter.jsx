@@ -63,6 +63,10 @@ export const Form = styled.form`
         margin: 0 0 10px 90px;
     }
 
+    @media (max-width: 390px) {
+        margin: 0 0 10px 75px;
+    }
+
     @media (max-width: 375px) {
         margin: 0 0 10px 70px;
     }
