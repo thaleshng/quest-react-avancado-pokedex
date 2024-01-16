@@ -2,11 +2,7 @@ import styled from "styled-components"
 import moonIcon from "../../assets/images/pokemon-moon-icon.png"
 import sunIcon from "../../assets/images/pokemon-sun-icon.png"
 
-export const Input = (props) => {
-    return(
-        <ThemeInput {...props} />
-    )
-}
+export const Input = (props) => <ThemeInput {...props} />;
 
 export const ThemeInput = styled.input`
   appearance: none;

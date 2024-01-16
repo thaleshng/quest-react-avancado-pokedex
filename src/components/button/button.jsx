@@ -1,10 +1,6 @@
 import styled from "styled-components"
 
-export const Button = (props) => {
-    return(
-        <ThemeButton {...props}/>
-    )
-}
+export const Button = (props) => <ButtonSeeMore {...props}/>
 
 export const ButtonSeeMore = styled.button`
     border: none;
@@ -29,14 +25,4 @@ export const ButtonSeeMore = styled.button`
             transform: rotate(270deg);
         }
     }
-`
-export const ThemeButton = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-//   background-color: ${props => props.theme['--toggle-button-color']};
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out; 
-  animation: slideToggle 0.3s ease-in-out;
 `

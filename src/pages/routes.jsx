@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Home } from "./home"
 import { PokemonDetails } from "./pokemon-details"
 
-export const AppRoutes = () => {
-    return (
+export const AppRoutes = () => (
         <BrowserRouter basename="quest-react-avancado-pokedex">
             <Routes>
                 <Route exact path="/" element={<Home />} />
@@ -11,4 +10,3 @@ export const AppRoutes = () => {
             </Routes>
         </BrowserRouter>
     )
-}

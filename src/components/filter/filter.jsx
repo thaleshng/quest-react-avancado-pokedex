@@ -1,24 +1,17 @@
 import styled from "styled-components";
 
 export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, props }) => {
-
     const types = new Set();
 
-    // Iterar sobre os pokémons e seus tipos
     pokemonsData.forEach(pokemon => {
         pokemon.types.forEach(type => {
             types.add(type);
         });
     });
 
-    // Converter o conjunto de tipos de volta para uma matriz (array)
     const typesList = Array.from(types);
 
-    // Saída dos tipos únicos no console
-    console.log(typesList);
-
     const handleTypeChange = (type) => {
-        // Atualizar os tipos selecionados quando houver alteração
         if (selectedTypes.includes(type)) {
             setSelectedTypes((prevTypes) => prevTypes.filter((prevType) => prevType !== type));
         } else {

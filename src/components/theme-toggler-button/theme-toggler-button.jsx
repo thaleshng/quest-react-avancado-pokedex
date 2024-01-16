@@ -4,15 +4,11 @@ import { ThemeInput } from "../button/input"
 
 export const ThemeTogglerButton = () => {
     const { theme, setTheme } = useContext(ThemeContext);
-    const [isChecked, setIsChecked] = useState(() => {
-        const storedTheme = localStorage.getItem("theme");
-        return storedTheme === JSON.stringify(themes.moon) || theme === themes.moon;
-    });
+    const [isChecked, setIsChecked] = useState(localStorage.getItem("theme") === JSON.stringify(themes.moon) || theme === themes.moon);
 
     useEffect(() => {
-        const storedTheme = localStorage.getItem("theme");
-        setIsChecked(storedTheme === JSON.stringify(themes.moon) || theme === themes.moon);
-    }, [theme]);
+        setIsChecked(localStorage.getItem("theme") === JSON.stringify(themes.moon) || theme === themes.moon);
+      }, [theme]);
 
     const toggleTheme = () => {
         const newTheme = theme.title === "sun" ? themes.moon : themes.sun;
@@ -21,14 +17,14 @@ export const ThemeTogglerButton = () => {
     };
     
     return (
-        <>
-            <ThemeInput 
-                type="checkbox" 
-                role="switch" 
-                checked={isChecked} 
-                theme={theme} 
-                onClick={toggleTheme} 
+        <label>
+            <ThemeInput
+                type="checkbox"
+                role="switch"
+                checked={isChecked}
+                theme={theme}
+                onChange={toggleTheme}
             />
-        </>
+        </label>
     )
 }

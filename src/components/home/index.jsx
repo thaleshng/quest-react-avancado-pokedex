@@ -32,7 +32,6 @@ export const PokemonsList = () => {
     };
 
     const filterPokemonsByType = () => {
-        // Filtrar pokémons com base nos tipos selecionados
         const filteredPokemons = pokemonsData.filter((pokemon) => {
             return selectedTypes.length === 0 || selectedTypes.every((type) => pokemon.types.includes(type));
         });
@@ -51,7 +50,6 @@ export const PokemonsList = () => {
     };
 
     const changeIcon = () => {
-        // Mudar o ícone ao clicar
         setIcon(icon === faFilter ? faXmark : faFilter);
     };
     

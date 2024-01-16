@@ -1,11 +1,13 @@
+import { useContext } from 'react';
 import { createGlobalStyle } from 'styled-components';
+
 import flexoBold from './assets/fonts/Flexo-Bold.ttf'
 import flexoDemi from './assets/fonts/Flexo-Demi.ttf'
 import flexoMedium from './assets/fonts/Flexo-Medium.ttf'
+
 import { AppRoutes } from './pages/routes';
 import { ThemeProvider } from './contexts/theme-context';
 import { ThemeTogglerButton } from './components/theme-toggler-button/theme-toggler-button';
-import { useContext } from 'react';
 import { ThemeContext, themes } from './contexts/theme-context';
 
 function App() {
@@ -66,5 +68,4 @@ const GlobalStyle = createGlobalStyle`
   background-size: cover;
   background-attachment: fixed;
  }
-
 `
