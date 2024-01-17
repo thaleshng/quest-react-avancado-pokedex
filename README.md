@@ -4,14 +4,16 @@
 <p align="center">5° Desafio do curso com Feedback</p> 
 <br>
 
-<div>
-    <h3 align="center"><strong>Desktop View</strong><h3>
+<div align="center">
+    <h3><strong>Desktop View</strong><h3>
     <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank"><img src="./src/assets/images/Desktop.gif" target="_blank"></a> 
 </div>
 
-<div>
-    <h3 align="center"><strong>Mobile View</strong><h3>
-    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank" align="center"><img src="./src/assets/images/Mobile.gif" target="_blank"></a> 
+<div align="center">
+    <h3><strong>Mobile View</strong><h3>
+    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank">
+        <img src="./src/assets/images/Mobile.gif" target="_blank">
+    </a> 
 </div>
 
 <div align="center">
