@@ -94,7 +94,7 @@ export const GetPokemonDetails = () => {
             <H1>{pokemonName} <span>{`N° ${formatNumber(pokemonId)}`}</span></H1>
             <Main theme={theme}>
                 <SectionGeneralInfos theme={theme}>
-                    <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt=""  theme={theme}/>
+                    <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt={pokemonName}  theme={theme}/>
                     <DivTypes>
                         {typeDetails.map((type, index) => (
                             <SpanTypes key={index} content={type.name}>{type.name}</SpanTypes>
