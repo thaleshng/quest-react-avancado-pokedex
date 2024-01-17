@@ -11,7 +11,7 @@
 
 <div>
     <h3 align="center"><strong>Mobile View</strong><h3>
-    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank"><img src="./src/assets/images/Mobile.gif" target="_blank" align="center"></a> 
+    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank" align="center"><img src="./src/assets/images/Mobile.gif" target="_blank"></a> 
 </div>
 
 <div align="center">
