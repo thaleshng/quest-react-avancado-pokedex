@@ -5,7 +5,7 @@ import flexoBold from './assets/fonts/Flexo-Bold.ttf'
 import flexoDemi from './assets/fonts/Flexo-Demi.ttf'
 import flexoMedium from './assets/fonts/Flexo-Medium.ttf'
 
-import { AppRoutes } from './pages/routes';
+import { AppRoutes } from './routes/routes';
 import { ThemeProvider } from './contexts/theme-context';
 import { ThemeTogglerButton } from './components/theme-toggler-button/theme-toggler-button';
 import { ThemeContext, themes } from './contexts/theme-context';
