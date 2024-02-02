@@ -4,16 +4,17 @@ import { ThemeInput } from "../input-theme"
 
 export const ThemeTogglerButton = () => {
     const { theme, setTheme } = useContext(ThemeContext);
-    const [isChecked, setIsChecked] = useState(localStorage.getItem("theme") === JSON.stringify(themes.moon) || theme === themes.moon);
+    const isMoonTheme = theme.title === "moon";
+    const [isChecked, setIsChecked] = useState(localStorage.getItem("theme") === themes.moon.title || isMoonTheme);
 
     useEffect(() => {
-        setIsChecked(localStorage.getItem("theme") === JSON.stringify(themes.moon) || theme === themes.moon);
-      }, [theme]);
+        setIsChecked(localStorage.getItem("theme") === themes.moon.title || isMoonTheme);
+    }, [theme, isMoonTheme]);
 
     const toggleTheme = () => {
-        const newTheme = theme.title === "sun" ? themes.moon : themes.sun;
+        const newTheme = isMoonTheme ? themes.sun : themes.moon;
         setTheme(newTheme);
-        localStorage.setItem("theme", JSON.stringify(newTheme));
+        localStorage.setItem("theme", newTheme.title);
     };
     
     return (
