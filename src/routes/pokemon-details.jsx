@@ -1,3 +1,3 @@
-import { GetPokemonDetails } from "../components/pokemon-details";
+import { GetPokemonDetails } from "../pages/pokemon-details";
 
 export const PokemonDetails = () => <GetPokemonDetails />

@@ -13,7 +13,6 @@ import { PokeCard } from "../../components/pokecard"
 
 export const PokemonsList = () => {
     const [pokemonsData, setPokemonsData] = useState([]);
-    const [buttonClicked, setButtonClicked] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
     const [icon, setIcon] = useState(faFilter);
     const [selectedTypes, setSelectedTypes] = useState([]);
@@ -40,18 +39,25 @@ export const PokemonsList = () => {
     };
 
     const formatNumber = (index) => {
-        return index < 9 ? `00${index + 1}` : `0${index + 1}`;
+        if (index < 9) {
+            return `00${index + 1}`;
+        } else if (index < 99) {
+            return `0${index + 1}`;
+        } else {
+            return `${index + 1}`;
+        }
     };
 
     const loadMorePokemons = async () => {
         const additionalPokemons = await getPokemonsWithTypes(pokemonsData.length);
         setPokemonsData((prevPokemons) => [...prevPokemons, ...additionalPokemons]);
-        setButtonClicked(true);
     };
 
     const changeIcon = () => {
         setIcon(icon === faFilter ? faXmark : faFilter);
     };
+
+    console.log(pokemonsData)
     
     return (
         <Main>
@@ -59,12 +65,10 @@ export const PokemonsList = () => {
             <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
             {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />}
             <PokeCard  selectedTypes={selectedTypes} filterPokemonsByType={filterPokemonsByType} theme={theme} formatNumber={formatNumber}/>
-            {!buttonClicked && (
-                <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
-                    Load More Pokemons
-                    <FontAwesomeIcon icon={faArrowsRotate} />
-                </ButtonSeeMore>
-            )}
+            <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
+                Load More Pokemons
+                <FontAwesomeIcon icon={faArrowsRotate} />
+            </ButtonSeeMore>
         </Main>
     );
 }

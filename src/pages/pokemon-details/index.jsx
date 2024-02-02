@@ -77,7 +77,13 @@ export const GetPokemonDetails = () => {
     }, [pokemonDetails.types]);
 
     const formatNumber = (id) => {
-        return id <= 9 ? `00${id}` : `0${id}`;
+        if (id < 10) {
+            return `00${id}`;
+        } else if (id < 100) {
+            return `0${id}`;
+        } else {
+            return `${id}`;
+        }
     };
 
     const toggleVisibility = (index) => {
@@ -266,6 +272,28 @@ const SpanTypes = styled.span`
             return 'linear-gradient(180deg, #729f3f 50%, #729f3f 50%)';
         } else if (content === 'normal') {
             return 'linear-gradient(180deg, #a4acaf 50%, #a4acaf 50%)';
+        } else if (content === 'dragon') {
+            return 'linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)';
+        } else if (content === 'fairy') {
+            return 'linear-gradient(180deg, #fdb9e9 50%, #fdb9e9 50%)';
+        } else if (content === 'ghost') {
+            return 'linear-gradient(180deg, #7b62a3 50%, #7b62a3 50%)';
+        } else if (content === 'ground') {
+            return 'linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)';
+        } else if (content === 'psychic') {
+            return 'linear-gradient(180deg, #f366b9 50%, #f366b9 50%)';
+        } else if (content === 'steel') {
+            return 'linear-gradient(180deg, #9eb7b8 50%, #9eb7b8 50%)';
+        } else if (content === 'dark') {
+            return 'linear-gradient(180deg, #707070 50%, #707070 50%)';
+        } else if (content === 'electric') {
+            return 'linear-gradient(180deg, #eed535 50%, #eed535 50%)';
+        } else if (content === 'fighting') {
+            return 'linear-gradient(180deg, #d56723 50%, #d56723 50%)';
+        } else if (content === 'ice') {
+            return 'linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%)';
+        } else if (content === 'rock') {
+            return 'linear-gradient(180deg, #a38c21 50%, #a38c21 50%)';
         }
     }};
 
@@ -277,6 +305,18 @@ const SpanTypes = styled.span`
         } else if (content === 'water') {
             return '#fff';
         } else if (content === 'bug') {
+            return '#fff';
+        } else if (content === 'dragon') {
+            return '#fff';
+        } else if (content === 'ghost') {
+            return '#fff';
+        } else if (content === 'psychic') {
+            return '#fff';
+        } else if (content === 'dark') {
+            return '#fff';
+        } else if (content === 'fighting') {
+            return '#fff';
+        } else if (content === 'rock') {
             return '#fff';
         } else {
             return '#212121';
