@@ -1,3 +1,3 @@
-import { PokemonsList } from "../components/home/index";
+import { PokemonsList } from "../pages/home/index";
 
 export const Home = () => <PokemonsList />

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { ThemeContext, themes } from "../../contexts/theme-context"
-import { ThemeInput } from "../button/input"
+import { ThemeInput } from "../input-theme"
 
 export const ThemeTogglerButton = () => {
     const { theme, setTheme } = useContext(ThemeContext);
