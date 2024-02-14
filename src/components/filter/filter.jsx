@@ -21,12 +21,23 @@ export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, p
 
     return (
         <Form theme={theme} >
-            {typesList.map((type, index)=>(
-                <DivTypeOption key={index}>
-                    <Label htmlFor={type} content={type} isSelected={selectedTypes.includes(type)}>{type}</Label>
-                    <Input id={type} type="checkbox" checked={selectedTypes.includes(type)} onChange={() => handleTypeChange(type)} theme={theme} {...props} />
-                </DivTypeOption>
-            ))}
+            <DivTypes theme={theme}>
+                <DivUl theme={theme}>
+                    <H2TypesAndText theme={theme}>Types</H2TypesAndText>
+                    <UlTypes>
+                        {typesList.map((type, index)=>(
+                                <LiTypes key={index}>
+                                    <Label htmlFor={type} content={type} isSelected={selectedTypes.includes(type)}>{type}</Label>
+                                    <Input id={type} type="checkbox" checked={selectedTypes.includes(type)} onChange={() => handleTypeChange(type)} theme={theme} {...props} />
+                                </LiTypes>
+                        ))}
+                    </UlTypes>
+                </DivUl>
+                <DivInput>
+                    <H2TypesAndText theme={theme}>Name or ID</H2TypesAndText>
+                    <InputText type="text" placeholder="Pokemon Name or ID"></InputText>
+                </DivInput>
+            </DivTypes>
             <Resetinput type="reset" value="Reset" theme={theme} onClick={() => setSelectedTypes([])} />
         </Form>
     )
@@ -39,6 +50,9 @@ export const Form = styled.form`
     margin: 0 0 10px 60px;
     border-radius: 5px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid ${props => props.theme['--border-color']};
 
     @media (max-width: 1280px) {
         margin: 0 0 10px 55px;
@@ -69,33 +83,95 @@ export const Form = styled.form`
     }
 `
 
-export const DivTypeOption = styled.div`
+export const DivTypes = styled.div`
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid ${props => props.theme['--border-color']};
+`
+
+export const DivUl = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid ${props => props.theme['--border-color']};
+`
+
+export const UlTypes = styled.ul`
+    display: flex;
+    flex-direction: column;
+    max-height: 210px;
+    flex-wrap: wrap;
+`
+
+export const H2TypesAndText = styled.h2`
+    font-size: 18px;
+    font-family: 'Flexo-Demi';
+    color: ${props => props.theme['--general-color']};
+    margin: 5px 0;
+    align-self: center;
+`
+
+export const LiTypes = styled.li`
     display: flex;
     gap: 15px;
     padding: 3px 50px;
     justify-content: space-between;
-    align-items: center;
-    
+    align-items: center; 
+`
+
+export const DivInput = styled.div`
+
+`
+
+export const InputText = styled.input`
+    height: 20px;
+    background-color: #FFF;
+    margin: 0 20px;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-family: 'Flexo-Medium';
+    border: 1px solid #000;
 `
 
 export const Label = styled.label`
-    background: ${({ content }) => {
-        if (content === 'grass') {
-            return 'linear-gradient(180deg, #9bcc50 50%, #9bcc50 50%)';
-        } else if (content === 'poison') {
-            return 'linear-gradient(180deg, #b97fc9 50%, #b97fc9 50%)';
-        } else if (content === 'fire') {
-            return 'linear-gradient(180deg, #FF6B4E 50%, #FF6B4E 50%)';
-        } else if (content === 'flying') {
-            return 'linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)';
-        } else if (content === 'water') {
-            return 'linear-gradient(180deg, #4592c4 50%, #4592c4 50%)';
-        } else if (content === 'bug') {
-            return 'linear-gradient(180deg, #729f3f 50%, #729f3f 50%)';
-        } else if (content === 'normal') {
-            return 'linear-gradient(180deg, #a4acaf 50%, #a4acaf 50%)';
-        }
-    }};
+background: ${({ content }) => {
+    if (content === 'grass') {
+        return 'linear-gradient(180deg, #9bcc50 50%, #9bcc50 50%)';
+    } else if (content === 'poison') {
+        return 'linear-gradient(180deg, #b97fc9 50%, #b97fc9 50%)';
+    } else if (content === 'fire') {
+        return 'linear-gradient(180deg, #FF6B4E 50%, #FF6B4E 50%)';
+    } else if (content === 'flying') {
+        return 'linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)';
+    } else if (content === 'water') {
+        return 'linear-gradient(180deg, #4592c4 50%, #4592c4 50%)';
+    } else if (content === 'bug') {
+        return 'linear-gradient(180deg, #729f3f 50%, #729f3f 50%)';
+    } else if (content === 'normal') {
+        return 'linear-gradient(180deg, #a4acaf 50%, #a4acaf 50%)';
+    } else if (content === 'dragon') {
+        return 'linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)';
+    } else if (content === 'fairy') {
+        return 'linear-gradient(180deg, #fdb9e9 50%, #fdb9e9 50%)';
+    } else if (content === 'ghost') {
+        return 'linear-gradient(180deg, #7b62a3 50%, #7b62a3 50%)';
+    } else if (content === 'ground') {
+        return 'linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)';
+    } else if (content === 'psychic') {
+        return 'linear-gradient(180deg, #f366b9 50%, #f366b9 50%)';
+    } else if (content === 'steel') {
+        return 'linear-gradient(180deg, #9eb7b8 50%, #9eb7b8 50%)';
+    } else if (content === 'dark') {
+        return 'linear-gradient(180deg, #707070 50%, #707070 50%)';
+    } else if (content === 'electric') {
+        return 'linear-gradient(180deg, #eed535 50%, #eed535 50%)';
+    } else if (content === 'fighting') {
+        return 'linear-gradient(180deg, #d56723 50%, #d56723 50%)';
+    } else if (content === 'ice') {
+        return 'linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%)';
+    } else if (content === 'rock') {
+        return 'linear-gradient(180deg, #a38c21 50%, #a38c21 50%)';
+    }
+}};
 
     color: ${({ content }) => {
         if (content === 'poison') {
@@ -146,6 +222,28 @@ export const Input = styled.input`
                 return 'linear-gradient(180deg, #729f3f 50%, #729f3f 50%)';
             } else if (id === 'normal') {
                 return 'linear-gradient(180deg, #a4acaf 50%, #a4acaf 50%)';
+            } else if (id === 'dragon') {
+                return 'linear-gradient(180deg, #53a4cf 50%, #f16e57 50%)';
+            } else if (id === 'fairy') {
+                return 'linear-gradient(180deg, #fdb9e9 50%, #fdb9e9 50%)';
+            } else if (id === 'ghost') {
+                return 'linear-gradient(180deg, #7b62a3 50%, #7b62a3 50%)';
+            } else if (id === 'ground') {
+                return 'linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)';
+            } else if (id === 'psychic') {
+                return 'linear-gradient(180deg, #f366b9 50%, #f366b9 50%)';
+            } else if (id === 'steel') {
+                return 'linear-gradient(180deg, #9eb7b8 50%, #9eb7b8 50%)';
+            } else if (id === 'dark') {
+                return 'linear-gradient(180deg, #707070 50%, #707070 50%)';
+            } else if (id === 'electric') {
+                return 'linear-gradient(180deg, #eed535 50%, #eed535 50%)';
+            } else if (id === 'fighting') {
+                return 'linear-gradient(180deg, #d56723 50%, #d56723 50%)';
+            } else if (id === 'ice') {
+                return 'linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%)';
+            } else if (id === 'rock') {
+                return 'linear-gradient(180deg, #a38c21 50%, #a38c21 50%)';
             }
         }};
 `
@@ -158,6 +256,8 @@ export const Resetinput = styled.input`
         font-family: 'Flexo-Medium';
         cursor: pointer;
         transition: 0.3s ease-in-out;
+        width: 100px;
+        align-self: center;
 
         &:hover {
             background-color: ${props => props.theme['--primary-bg-color']};

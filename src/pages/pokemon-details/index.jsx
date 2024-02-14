@@ -321,7 +321,7 @@ const SpanTypes = styled.span`
         } else {
             return '#212121';
         }
-    }};
+    }};"
 `
 const SectionAbilitiesAndMoves = styled.section`
     display: flex;
