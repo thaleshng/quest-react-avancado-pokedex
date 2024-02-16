@@ -17,6 +17,7 @@ export const PokemonsList = () => {
     const [icon, setIcon] = useState(faFilter);
     const [selectedTypes, setSelectedTypes] = useState([]);
     const { theme } = useContext(ThemeContext)
+    const [displayedPokemons, setDisplayedPokemons] = useState(10);
 
     useEffect(() => {
         async function fetchData() {
@@ -48,9 +49,8 @@ export const PokemonsList = () => {
         }
     };
 
-    const loadMorePokemons = async () => {
-        const additionalPokemons = await getPokemonsWithTypes(pokemonsData.length);
-        setPokemonsData((prevPokemons) => [...prevPokemons, ...additionalPokemons]);
+    const loadMorePokemons = () => {
+        setDisplayedPokemons((prevDisplayedPokemons) => prevDisplayedPokemons + 10);
     };
 
     const changeIcon = () => {
@@ -64,11 +64,19 @@ export const PokemonsList = () => {
             <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
             <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
             {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />}
-            <PokeCard  selectedTypes={selectedTypes} filterPokemonsByType={filterPokemonsByType} theme={theme} formatNumber={formatNumber}/>
-            <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
-                Load More Pokemons
-                <FontAwesomeIcon icon={faArrowsRotate} />
-            </ButtonSeeMore>
+            <PokeCard  
+                selectedTypes={selectedTypes} 
+                filterPokemonsByType={filterPokemonsByType} 
+                theme={theme} 
+                formatNumber={formatNumber}
+                displayedPokemons={displayedPokemons}
+            />
+            {displayedPokemons < 920 && (
+                <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
+                    Load More Pokemons
+                    <FontAwesomeIcon icon={faArrowsRotate} />
+                </ButtonSeeMore>
+            )}
         </Main>
     );
 }

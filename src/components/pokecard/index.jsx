@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-export const PokeCard = ({selectedTypes, filterPokemonsByType, theme, formatNumber}) => {
+export const PokeCard = ({selectedTypes, filterPokemonsByType, theme, formatNumber, displayedPokemons }) => {
     return (
         <Ul>
                 {selectedTypes.length > 0 && filterPokemonsByType().length === 0 ? (
@@ -9,7 +9,7 @@ export const PokeCard = ({selectedTypes, filterPokemonsByType, theme, formatNumb
                         <p>No Pokémon found with the selected types.</p>
                     </LiTypeNone>
                 ) : (
-                    filterPokemonsByType().map((pokemon, index) => (
+                    filterPokemonsByType().slice(0, displayedPokemons).map((pokemon, index) => (
                         <Li key={index} theme={theme}>
                             <Link to={`/${pokemon.name}`} state={{ pokemon }}>
                                 <DivImg theme={theme}>

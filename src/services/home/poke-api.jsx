@@ -1,4 +1,5 @@
-    export async function getPokemonList(url = 'https://pokeapi.co/api/v2/pokemon/?limit=10') {
+export async function getPokemonList(url = 'https://pokeapi.co/api/v2/pokemon/?limit=10') {
+    try {
         const response = await fetch(url);
         const data = await response.json();
         const nextUrl = data.next;
@@ -7,23 +8,37 @@
             nextUrl: nextUrl,
             results: data.results,
         };
+    } catch (error) {
+        console.error("Error fetching Pokemon list:", error);
+        throw error;
     }
+}
 
-    export async function getPokemonTypes(url) {
+export async function getPokemonTypes(url) {
+    try {
         const response = await fetch(url);
         const data = await response.json();
         const types = data.types.map((typeInfo) => typeInfo.type.name);
         return types;
+    } catch (error) {
+        console.error("Error fetching Pokemon types:", error);
+        throw error;
     }
+}
 
-    export async function getPokemonsWithTypes(startIndex = 0) {
-        let currentUrl = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=${startIndex}`;
-        let allPokemons = [];
+export async function getPokemonsWithTypes(startIndex = 0, limit = 920) {
+    let currentUrl = `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${startIndex}`;
+    let allPokemons = [];
 
-        do {
+    do {
+        try {
             const { results: pokemonList, nextUrl } = await getPokemonList(currentUrl);
 
-            const remainingPokemons = 10 - allPokemons.length;
+            if (!nextUrl) {
+                break;
+            }
+
+            const remainingPokemons = limit - allPokemons.length;
             const pokemonsToFetch = pokemonList.slice(0, remainingPokemons);
 
             const pokemonsWithTypes = await Promise.all(
@@ -39,9 +54,12 @@
             );
 
             allPokemons = allPokemons.concat(pokemonsWithTypes);
-            
-            currentUrl = nextUrl;
-        } while (currentUrl && allPokemons.length < 10);
 
-        return allPokemons;
-    }
+            currentUrl = nextUrl;
+        } catch (error) {
+            console.error("Error fetching Pokemon list:", error);
+        }
+    } while (currentUrl && allPokemons.length < limit);
+
+    return allPokemons;
+}
