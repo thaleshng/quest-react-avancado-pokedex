@@ -16,6 +16,7 @@ export const PokemonsList = () => {
     const [showFilter, setShowFilter] = useState(false);
     const [icon, setIcon] = useState(faFilter);
     const [selectedTypes, setSelectedTypes] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
     const { theme } = useContext(ThemeContext)
     const [displayedPokemons, setDisplayedPokemons] = useState(10);
 
@@ -31,21 +32,34 @@ export const PokemonsList = () => {
         setShowFilter((prevShowFilter) => !prevShowFilter);
     };
 
-    const filterPokemonsByType = () => {
-        const filteredPokemons = pokemonsData.filter((pokemon) => {
-            return selectedTypes.length === 0 || selectedTypes.every((type) => pokemon.types.includes(type));
+    const filterPokemons = () => {
+        const filteredPokemons = pokemonsData.filter((pokemon, index) => {
+            const matchesType = selectedTypes.length === 0 || selectedTypes.every((type) => pokemon.types.includes(type));
+            const formattedNumber = formatNumber(index);
+            const matchesSearch =
+                !searchInput ||
+                pokemon.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+                formattedNumber.includes(searchInput.toLowerCase());
+            return matchesType && matchesSearch;
         });
 
-        return filteredPokemons;
+        return filteredPokemons.slice(0, displayedPokemons);
     };
 
     const formatNumber = (index) => {
-        if (index < 9) {
-            return `00${index + 1}`;
-        } else if (index < 99) {
-            return `0${index + 1}`;
+        const pokemon = pokemonsData[index];
+        if (!pokemon) {
+            return "";
+        }
+
+        const pokemonIndex = pokemonsData.findIndex((p) => p === pokemon) + 1;
+
+        if (pokemonIndex < 10) {
+            return `00${pokemonIndex}`;
+        } else if (pokemonIndex < 100) {
+            return `0${pokemonIndex}`;
         } else {
-            return `${index + 1}`;
+            return `${pokemonIndex}`;
         }
     };
 
@@ -57,23 +71,25 @@ export const PokemonsList = () => {
         setIcon(icon === faFilter ? faXmark : faFilter);
     };
 
-    console.log(pokemonsData)
-    
+    const filteredPokemons = filterPokemons();
+
     return (
         <Main>
             <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
             <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
-            {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />}
-            <PokeCard  
-                selectedTypes={selectedTypes} 
-                filterPokemonsByType={filterPokemonsByType} 
-                theme={theme} 
+            {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchInput={setSearchInput} />
+            }
+            <PokeCard
+                pokemonsData={pokemonsData}
+                selectedTypes={selectedTypes}
+                filterPokemons={filterPokemons}
+                theme={theme}
                 formatNumber={formatNumber}
                 displayedPokemons={displayedPokemons}
             />
-            {displayedPokemons < 920 && (
+            {displayedPokemons === filteredPokemons.length && displayedPokemons < pokemonsData.length && (
                 <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
-                    Load More Pokemons
+                    Carregar mais Pokémon
                     <FontAwesomeIcon icon={faArrowsRotate} />
                 </ButtonSeeMore>
             )}

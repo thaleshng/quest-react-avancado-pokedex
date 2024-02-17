@@ -1,15 +1,20 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
-export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, props }) => {
-    const types = new Set();
+export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, setSearchInput, theme, props }) => {
+    const [ types, setTypes ] = useState(new Set());
+    const [ typesList, setTypesList ] = useState([]);
 
-    pokemonsData.forEach(pokemon => {
-        pokemon.types.forEach(type => {
-            types.add(type);
+    useEffect(() => {
+        const newTypes = new Set();
+        pokemonsData.forEach((pokemon) => {
+            pokemon.types.forEach((type) => {
+                newTypes.add(type);
+            });
         });
-    });
-
-    const typesList = Array.from(types);
+        setTypes(newTypes);
+        setTypesList(Array.from(newTypes));
+    }, [pokemonsData]);
 
     const handleTypeChange = (type) => {
         if (selectedTypes.includes(type)) {
@@ -19,29 +24,43 @@ export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, p
         }
     };
 
+    const handleSearchChange = (event) => {
+        setSearchInput(event.target.value);
+    };
+
     return (
-        <Form theme={theme} >
+        <Form theme={theme}>
             <DivTypes theme={theme}>
                 <DivUl theme={theme}>
                     <H2TypesAndText theme={theme}>Types</H2TypesAndText>
                     <UlTypes>
-                        {typesList.map((type, index)=>(
-                                <LiTypes key={index}>
-                                    <Label htmlFor={type} content={type} isSelected={selectedTypes.includes(type)}>{type}</Label>
-                                    <Input id={type} type="checkbox" checked={selectedTypes.includes(type)} onChange={() => handleTypeChange(type)} theme={theme} {...props} />
-                                </LiTypes>
+                        {typesList.map((type, index) => (
+                            <LiTypes key={index}>
+                                <Label htmlFor={type} content={type} isSelected={selectedTypes.includes(type)}>
+                                    {type}
+                                </Label>
+                                <Input id={type} type="checkbox" checked={selectedTypes.includes(type)} onChange={() => handleTypeChange(type)} theme={theme} {...props} />
+                            </LiTypes>
                         ))}
                     </UlTypes>
                 </DivUl>
                 <DivInput>
                     <H2TypesAndText theme={theme}>Name or ID</H2TypesAndText>
-                    <InputText type="text" placeholder="Pokemon Name or ID"></InputText>
+                    <InputText type="text" placeholder="Pokemon Name or ID" onChange={handleSearchChange} />
                 </DivInput>
             </DivTypes>
-            <Resetinput type="reset" value="Reset" theme={theme} onClick={() => setSelectedTypes([])} />
+            <Resetinput 
+                type="reset" 
+                value="Reset" 
+                theme={theme} 
+                onClick={() => {
+                setSelectedTypes([]); 
+                setSearchInput('');
+                }}
+            />
         </Form>
-    )
-}
+    );
+};
 
 export const Form = styled.form`
     background: ${props => props.theme['--bg-color-filter']};
@@ -182,6 +201,18 @@ background: ${({ content }) => {
             return '#fff';
         } else if (content === 'bug') {
             return '#fff';
+        } else if (content === 'dragon') {
+            return '#fff';
+        } else if (content === 'ghost') {
+            return '#fff';
+        } else if (content === 'psychic') {
+            return '#fff';
+        } else if (content === 'dark') {
+            return '#fff';
+        } else if (content === 'fighting') {
+            return '#fff';
+        } else if (content === 'rock') {
+            return '#fff';
         } else {
             return '#212121';
         }
@@ -249,7 +280,7 @@ export const Input = styled.input`
 `
 
 export const Resetinput = styled.input`
-        margin: 5px 0;
+        margin: 7px 0;
         padding: 3px 8px;
         background-color: #FFF;
         border-radius: 8px;

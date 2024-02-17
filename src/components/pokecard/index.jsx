@@ -1,21 +1,27 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-export const PokeCard = ({selectedTypes, filterPokemonsByType, theme, formatNumber, displayedPokemons }) => {
+export const PokeCard = ({ filterPokemons, theme, formatNumber, pokemonsData }) => {
+    const filteredPokemons = filterPokemons();
+    const noResults = filteredPokemons.length === 0;
+
     return (
         <Ul>
-                {selectedTypes.length > 0 && filterPokemonsByType().length === 0 ? (
-                    <LiTypeNone theme={theme}>
-                        <p>No Pokémon found with the selected types.</p>
-                    </LiTypeNone>
-                ) : (
-                    filterPokemonsByType().slice(0, displayedPokemons).map((pokemon, index) => (
+            {noResults ? (
+                <LiTypeNone theme={theme}>
+                    <p>No Pokémon found.</p>
+                </LiTypeNone>
+            ) : (
+                filteredPokemons.map((pokemon, index) => {
+                    const pokemonIndex = pokemonsData.findIndex((p) => p === pokemon) + 1;
+
+                    return (
                         <Li key={index} theme={theme}>
                             <Link to={`/${pokemon.name}`} state={{ pokemon }}>
                                 <DivImg theme={theme}>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${index+1}.gif`} alt={pokemon.name}></img>
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonIndex}.gif`} alt={pokemon.name} />
                                 </DivImg>
-                                <Span>N° {formatNumber(index)}</Span>
+                                <Span>N° {formatNumber(pokemonIndex - 1)}</Span>
                                 <Span>{pokemon.name}</Span>
                                 <DivTypes>
                                     {pokemon.types.map((type, index) => (
@@ -24,11 +30,12 @@ export const PokeCard = ({selectedTypes, filterPokemonsByType, theme, formatNumb
                                 </DivTypes>
                             </Link>
                         </Li>
-                    ))
-                )}
-            </Ul>
-    )
-}
+                    );
+                }) 
+            )}
+        </Ul>
+    );
+};
 
 const Ul = styled.ul`
     display: flex;
