@@ -73,25 +73,30 @@ export const PokemonsList = () => {
 
     const filteredPokemons = filterPokemons();
 
+    const isDataLoaded = pokemonsData.length > 0;
+
     return (
         <Main>
             <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
-            <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
-            {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchInput={setSearchInput} />
-            }
-            <PokeCard
-                pokemonsData={pokemonsData}
-                selectedTypes={selectedTypes}
-                filterPokemons={filterPokemons}
-                theme={theme}
-                formatNumber={formatNumber}
-                displayedPokemons={displayedPokemons}
-            />
-            {displayedPokemons === filteredPokemons.length && displayedPokemons < pokemonsData.length && (
-                <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
-                    Carregar mais Pokémon
-                    <FontAwesomeIcon icon={faArrowsRotate} />
-                </ButtonSeeMore>
+            {isDataLoaded && (
+                <>
+                    <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
+                    {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchInput={setSearchInput} />}
+                    <PokeCard
+                        pokemonsData={pokemonsData}
+                        selectedTypes={selectedTypes}
+                        filterPokemons={filterPokemons}
+                        theme={theme}
+                        formatNumber={formatNumber}
+                        displayedPokemons={displayedPokemons}
+                    />
+                    {displayedPokemons === filteredPokemons.length && displayedPokemons < pokemonsData.length && (
+                        <ButtonSeeMore onClick={loadMorePokemons} theme={theme}>
+                            Carregar mais Pokémon
+                            <FontAwesomeIcon icon={faArrowsRotate} />
+                        </ButtonSeeMore>
+                    )}
+                </>
             )}
         </Main>
     );
