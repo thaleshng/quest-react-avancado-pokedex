@@ -94,7 +94,7 @@ const Li = styled.li`
     text-decoration: none;
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.01);
         background-color: ${props => props.theme['--primary-bg-color-hover']};
     }
 

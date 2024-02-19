@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, setSearchInput, theme, props }) => {
+export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, props }) => {
     const [ types, setTypes ] = useState(new Set());
     const [ typesList, setTypesList ] = useState([]);
 
@@ -24,10 +24,6 @@ export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, setSearc
         }
     };
 
-    const handleSearchChange = (event) => {
-        setSearchInput(event.target.value);
-    };
-
     return (
         <Form theme={theme}>
             <DivTypes theme={theme}>
@@ -44,19 +40,16 @@ export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, setSearc
                         ))}
                     </UlTypes>
                 </DivUl>
-                <DivInput>
+                {/* <DivInput>
                     <H2TypesAndText theme={theme}>Name or ID</H2TypesAndText>
                     <InputText type="text" placeholder="Pokemon Name or ID" onChange={handleSearchChange} />
-                </DivInput>
+                </DivInput> */}
             </DivTypes>
-            <Resetinput 
+            <ResetInput 
                 type="reset" 
                 value="Reset" 
                 theme={theme} 
-                onClick={() => {
-                setSelectedTypes([]); 
-                setSearchInput('');
-                }}
+                onClick={() => setSelectedTypes([])}
             />
         </Form>
     );
@@ -66,12 +59,15 @@ export const Form = styled.form`
     background: ${props => props.theme['--bg-color-filter']};
     background-size: cover;
     align-self: start;
-    margin: 0 0 10px 60px;
+    margin: 0 0 0px 60px;
     border-radius: 5px;
     text-align: center;
     display: flex;
     flex-direction: column;
     border: 1px solid ${props => props.theme['--border-color']};
+    position: relative;
+    bottom: -10px;
+    z-index: 9;
 
     @media (max-width: 1280px) {
         margin: 0 0 10px 55px;
@@ -105,13 +101,11 @@ export const Form = styled.form`
 export const DivTypes = styled.div`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid ${props => props.theme['--border-color']};
 `
 
 export const DivUl = styled.div`
     display: flex;
     flex-direction: column;
-    border-right: 1px solid ${props => props.theme['--border-color']};
 `
 
 export const UlTypes = styled.ul`
@@ -135,10 +129,6 @@ export const LiTypes = styled.li`
     padding: 3px 50px;
     justify-content: space-between;
     align-items: center; 
-`
-
-export const DivInput = styled.div`
-
 `
 
 export const InputText = styled.input`
@@ -279,7 +269,7 @@ export const Input = styled.input`
         }};
 `
 
-export const Resetinput = styled.input`
+export const ResetInput = styled.input`
         margin: 7px 0;
         padding: 3px 8px;
         background-color: #FFF;

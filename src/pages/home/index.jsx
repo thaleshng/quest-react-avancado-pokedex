@@ -7,6 +7,7 @@ import pokemonLogo from "../../assets/images/Pokemon-Logo.png"
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons"
 import { faFilter } from "@fortawesome/free-solid-svg-icons"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Filter } from "../../components/filter/filter"
 import { PokeCard } from "../../components/pokecard"
@@ -75,13 +76,37 @@ export const PokemonsList = () => {
 
     const isDataLoaded = pokemonsData.length > 0;
 
+    const handleSearchChange = (event) => {
+        setSearchInput(event.target.value);
+    };
+
     return (
         <Main>
             <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
             {isDataLoaded && (
                 <>
                     <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
-                    {showFilter && <Filter pokemonsData={pokemonsData} theme={theme} selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} setSearchInput={setSearchInput} />}
+                    {showFilter &&
+                    <Filter 
+                        pokemonsData={pokemonsData} 
+                        theme={theme} 
+                        selectedTypes={selectedTypes} 
+                        setSelectedTypes={setSelectedTypes} 
+                        setSearchInput={setSearchInput}
+                    />}
+                    <DivSearch>
+                        <InputSearch type="text" placeholder="Pokemon Name or ID" onChange={handleSearchChange} value={searchInput}/>
+                        {searchInput !== '' ? (
+                            <ResetInputSearch
+                                type="reset" 
+                                value="Clear" 
+                                theme={theme} 
+                                onClick={() => setSearchInput('')}
+                            />
+                        ) : (
+                            <FontAwesomeIcon icon={faSearch} />
+                        )}
+                    </DivSearch>
                     <PokeCard
                         pokemonsData={pokemonsData}
                         selectedTypes={selectedTypes}
@@ -132,8 +157,10 @@ const ImgLogo = styled.img`
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     font-size: ${({ icon }) => (icon === faXmark ? '28px' : '20px')};
     align-self: start;
-    margin: ${({ icon }) => (icon === faXmark ? '0 0 0px 60px' : '0 0 10px 60px')};
+    margin: ${({ icon }) => (icon === faXmark ? '0 0 0px 60px' : '0 0 0px 60px')};
     cursor: pointer;
+    position: relative;
+    bottom: -10px;
     transition: transform, color 0.5s ease;
     color: ${({ icon }) => (icon !== faXmark ? props => props.theme['--general-color'] : props => props.theme['--general-color'])};
 
@@ -170,4 +197,37 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     @media (max-width: 320px) {
         margin: 0 0 10px 40px;
     }
+`
+const DivSearch = styled.div`
+    align-self: flex-end;
+    position: relative;
+    bottom: 10px;
+    right: 40px;
+
+    & > svg {
+        position: absolute;
+        right: 25px;
+        top: 3px;
+        color: #999
+    }
+`
+
+export const InputSearch = styled.input`
+    height: 20px;
+    width: 180px;
+    background-color: #FFF;
+    margin: 0 20px;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-family: 'Flexo-Medium';
+    border: 1px solid #000;
+`
+
+const ResetInputSearch = styled.input`
+    position: absolute;
+    right: 25px;
+    top: 3px;
+    cursor: pointer;
+    font-family: 'Flexo-Medium';
+    color: #999;
 `
