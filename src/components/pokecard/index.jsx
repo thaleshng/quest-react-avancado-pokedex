@@ -75,6 +75,11 @@ const Ul = styled.ul`
     gap: 30px;
     justify-content: center;
     max-width: 1280px;
+
+    @media (min-width: 1450px) {
+        width: 100vw;
+        height: 80vh;
+    }
 `
 
 const LiTypeNone = styled.li`
@@ -92,8 +97,9 @@ const LiTypeNone = styled.li`
         font-size: 18px;
         color: ${props => props.theme['--general-color']};
 
-        @media (max-width: 2560px) {
-            font-size: 24px;
+        @media (min-width: 1450px) {
+            width: 1300px;
+            font-size: 35px;
         }
 
         @media (max-width: 1024px) {
@@ -116,8 +122,8 @@ const Li = styled.li`
     display: flex;
     flex-direction: column;
     align-self: center;
-    width: 180px;
-    height: 240px;
+    min-width: 180px;
+    min-height: 240px;
     padding: 10px;
     border-radius: 15px;
     align-items: center;
@@ -134,7 +140,11 @@ const Li = styled.li`
         color: #DDDDDD;
         font-family: 'Flexo-Bold';
         margin-bottom: 3px;
+
+        @media (min-width: 1450px) {
+            font-size: 25px;
         }
+    }
 
         & > span:nth-child(3) {
             text-transform: capitalize;
@@ -143,6 +153,16 @@ const Li = styled.li`
             font-family: 'Flexo-Demi';
             margin-bottom: 12px;
             color: ${props => props.theme['--general-color']};
+
+            @media (min-width: 1450px) {
+                font-size: 25px;
+            }
+        }
+
+        @media (min-width: 1450px) {
+            min-width: 250px;
+            min-height: 320px;
+            justify-content: space-evenly;
         }
     }
 `
@@ -155,6 +175,10 @@ const DivImg = styled.div`
     justify-content: center;
     border-radius: 15px;
     background-color: ${props => props.theme['--secundary-bg-color']};
+
+    @media (min-width: 1450px) {
+        width: 240px;
+    }
 `
 
 const Span = styled.span`
@@ -246,4 +270,9 @@ const SpanTypes = styled.span`
             return '#212121';
         }
     }};
+
+    @media (min-width: 1450px) {
+        font-size: 20px;
+        border-radius: 5px;
+     }
 `

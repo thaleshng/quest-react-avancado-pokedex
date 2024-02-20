@@ -25,4 +25,8 @@ export const ButtonSeeMore = styled.button`
             transform: rotate(270deg);
         }
     }
+
+    @media (min-width: 1450px) {
+        font-size: 25px;
+    }
 `

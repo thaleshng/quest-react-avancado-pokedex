@@ -63,7 +63,6 @@ export const Form = styled.form`
     border: 1px solid ${props => props.theme['--border-color']};
     position: relative;
     bottom: -10px;
-    z-index: 9;
 
     @media (max-width: 1280px) {
         margin: 0 0 10px 55px;
@@ -78,19 +77,21 @@ export const Form = styled.form`
     }
 
     @media (max-width: 425px) {
-        margin: 0 0 10px 90px;
+        margin: 0 0 10px 80px;
+        width: 210px;
+        bottom: 15px;
     }
 
     @media (max-width: 390px) {
-        margin: 0 0 10px 75px;
+        margin: 0 0 10px 60px;
     }
 
     @media (max-width: 375px) {
-        margin: 0 0 10px 70px;
+        margin: 0 0 10px 58px;
     }
 
     @media (max-width: 320px) {
-        margin: 0 0 10px 40px;
+        margin: 0 0 10px 30px;
     }
 `
 
@@ -125,6 +126,10 @@ export const LiTypes = styled.li`
     padding: 3px 50px;
     justify-content: space-between;
     align-items: center; 
+
+    @media (max-width: 425px) {
+        padding: 3px 10px;
+    }
 `
 
 export const InputText = styled.input`

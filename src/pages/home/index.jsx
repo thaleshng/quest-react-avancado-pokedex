@@ -82,9 +82,9 @@ export const PokemonsList = () => {
 
     return (
         <Main>
-            <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
             {isDataLoaded && (
                 <>
+                    <ImgLogo src={pokemonLogo} alt="Logo Pokémon" />
                     <StyledFontAwesomeIcon icon={icon} onClick={() => { toggleFilter(); changeIcon() }} theme={theme} />
                     {showFilter &&
                     <Filter 
@@ -132,11 +132,21 @@ const Main = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media (min-width: 1450px) {
+        height: 80vh;
+        max-width: 1920px;
+    }
 `
 
 const ImgLogo = styled.img`
     max-width: 25%;
     max-height: 25%;
+
+    @media (min-width: 1450px) {
+        max-width: 30%;
+        max-height: 30%;
+    }
 
     @media (max-width: 475px) {
         max-width: 45%;
@@ -160,7 +170,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     margin: ${({ icon }) => (icon === faXmark ? '0 0 0px 60px' : '0 0 0px 60px')};
     cursor: pointer;
     position: relative;
-    bottom: -10px;
+    bottom: 10px;
     transition: transform, color 0.5s ease;
     color: ${({ icon }) => (icon !== faXmark ? props => props.theme['--general-color'] : props => props.theme['--general-color'])};
 
@@ -182,20 +192,20 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
     }
 
     @media (max-width: 425px) {
-        margin: 0 0 10px 90px;
+        margin: 0 0 10px 80px;
         color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
     }
 
     @media (max-width: 390px) {
-        margin: 0 0 10px 75px;
+        margin: 0 0 10px 60px;
     }
 
     @media (max-width: 375px) {
-        margin: 0 0 10px 70px;
+        margin: 0 0 10px 58px;
     }
 
     @media (max-width: 320px) {
-        margin: 0 0 10px 40px;
+        margin: 0 0 10px 30px;
     }
 `
 const DivSearch = styled.div`
@@ -210,6 +220,26 @@ const DivSearch = styled.div`
         top: 3px;
         color: #999
     }
+
+    @media (max-width: 768px) {
+        margin: 0 -25px;
+    }
+
+    @media (max-width: 425px) {
+        right: 100px;
+    }
+
+    @media (max-width: 390px) {
+        right: 82px;
+    }
+
+    @media (max-width: 375px) {
+        right: 75px;
+    }
+
+    @media (max-width: 320px) {
+        right: 48px;
+    }
 `
 
 export const InputSearch = styled.input`
@@ -221,6 +251,11 @@ export const InputSearch = styled.input`
     padding-left: 5px;
     font-family: 'Flexo-Medium';
     border: 1px solid #000;
+
+    @media (min-width: 1450px) {
+       min-width: 250px;
+       font-size: 25px;
+    }
 `
 
 const ResetInputSearch = styled.input`

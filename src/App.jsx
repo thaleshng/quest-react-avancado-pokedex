@@ -62,10 +62,15 @@ const GlobalStyle = createGlobalStyle`
 
  body {
   max-width: 1280px;
-  height: 100vh;
   margin: 0 auto;
   background: ${props => props.theme['--bg-image']} center center no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 1440px) {
+    height: 100vh;
+  }
  }
 `
