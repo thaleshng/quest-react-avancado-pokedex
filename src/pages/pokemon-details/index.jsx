@@ -90,6 +90,33 @@ export const GetPokemonDetails = () => {
         setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
+    const formatPokemonName = (name) => {
+        const capitalizeWords = (str) => str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    
+        if (name.includes("mr-")) {
+            return capitalizeWords(name.replace("mr-", "mr. "));
+        } else if (name.includes("tapu-")) {
+            return capitalizeWords(name.replace("tapu-", "tapu "));
+        } else if (name.includes("-f") && name.length === name.indexOf("-f") + 2) {
+            return capitalizeWords(name.replace("-f", " ♀"));
+        } else if (name.includes("-m") && name.length === name.indexOf("-m") + 2) {
+            return capitalizeWords(name.replace("-m", " ♂"));
+        } else if (name.includes("-jr")) {
+            return capitalizeWords(name.replace("-jr", " Jr."));
+        } else if (name.includes("type-")) {
+            return capitalizeWords(name.replace("type-", "Type: "));
+        } else  if (name.includes("-")) {
+        const [pokemon, secondPart] = name.split("-");
+
+        if ((secondPart.charAt(0) === 'o' && secondPart.length <= 2) || (secondPart === "z" && secondPart.length <= 2) || (secondPart === "jr" && secondPart.length <= 2) || (secondPart === "null") ){
+            return capitalizeWords(name);
+        }
+        return capitalizeWords(pokemon);
+    }
+    
+        return capitalizeWords(name);
+    };
+
     return (
         <DivContainer>
             <DivLink theme={theme}>
@@ -97,7 +124,7 @@ export const GetPokemonDetails = () => {
                     <FontAwesomeIcon icon={faHouse} />
                 </Link>
             </DivLink>
-            <H1>{pokemonName} <span>{`N° ${formatNumber(pokemonId)}`}</span></H1>
+            <H1>{formatPokemonName(pokemonName)} <span>{`N° ${formatNumber(pokemonId)}`}</span></H1>
             <Main theme={theme}>
                 <SectionGeneralInfos theme={theme}>
                     <Img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatNumber(pokemonId)}.png`} alt={pokemonName}  theme={theme}/>

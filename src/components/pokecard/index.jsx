@@ -5,6 +5,37 @@ export const PokeCard = ({ filterPokemons, theme, formatNumber, pokemonsData }) 
     const filteredPokemons = filterPokemons();
     const noResults = filteredPokemons.length === 0;
 
+    const formatPokemonName = (name) => {
+        const capitalizeWords = (str) => str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    
+        if (name.includes("mr-")) {
+            return capitalizeWords(name.replace("mr-", "mr. "));
+        } else if (name.includes("tapu-")) {
+            return capitalizeWords(name.replace("tapu-", "tapu "));
+        } else if (name.includes("-f") && name.length === name.indexOf("-f") + 2) {
+            return capitalizeWords(name.replace("-f", " ♀"));
+        } else if (name.includes("-m") && name.length === name.indexOf("-m") + 2) {
+            return capitalizeWords(name.replace("-m", " ♂"));
+        } else if (name.includes("-jr")) {
+            return capitalizeWords(name.replace("-jr", " Jr."));
+        } else if (name.includes("type-")) {
+            return capitalizeWords(name.replace("type-", "Type: "));
+        } else  if (name.includes("-")) {
+        const [pokemon, secondPart] = name.split("-");
+
+        if (
+            (secondPart.charAt(0) === 'o' && secondPart.length <= 2) || 
+            (secondPart === "z" && secondPart.length <= 2) || 
+            (secondPart === "jr" && secondPart.length <= 2) || 
+            (secondPart === "null")
+        ) {
+            return capitalizeWords(name);
+        }
+        return capitalizeWords(pokemon);
+    }
+        return capitalizeWords(name);
+    } 
+
     return (
         <Ul>
             {noResults ? (
@@ -13,16 +44,17 @@ export const PokeCard = ({ filterPokemons, theme, formatNumber, pokemonsData }) 
                 </LiTypeNone>
             ) : (
                 filteredPokemons.map((pokemon, index) => {
-                    const pokemonIndex = pokemonsData.findIndex((p) => p === pokemon) + 1;
+                    const pokemonId = pokemonsData.findIndex((p) => p === pokemon) + 1;
+                    console.log(pokemon.name)
 
                     return (
                         <Li key={index} theme={theme}>
                             <Link to={`/${pokemon.name}`} state={{ pokemon }}>
                                 <DivImg theme={theme}>
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonIndex}.gif`} alt={pokemon.name} />
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonId}.gif`} alt={formatPokemonName(pokemon.name)} />
                                 </DivImg>
-                                <Span>N° {formatNumber(pokemonIndex - 1)}</Span>
-                                <Span>{pokemon.name}</Span>
+                                <Span>N° {formatNumber(pokemonId - 1)}</Span>
+                                <Span>{formatPokemonName(pokemon.name)}</Span>
                                 <DivTypes>
                                     {pokemon.types.map((type, index) => (
                                         <SpanTypes key={index} content={type}>{type}</SpanTypes>

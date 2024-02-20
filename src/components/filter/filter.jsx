@@ -40,10 +40,6 @@ export const Filter = ({ pokemonsData, selectedTypes, setSelectedTypes, theme, p
                         ))}
                     </UlTypes>
                 </DivUl>
-                {/* <DivInput>
-                    <H2TypesAndText theme={theme}>Name or ID</H2TypesAndText>
-                    <InputText type="text" placeholder="Pokemon Name or ID" onChange={handleSearchChange} />
-                </DivInput> */}
             </DivTypes>
             <ResetInput 
                 type="reset" 
