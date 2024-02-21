@@ -162,6 +162,12 @@ const ImgLogo = styled.img`
         max-width: 60%;
         max-height: 60%;
     }
+
+    @media (max-width: 240px) {
+        max-width: 70%;
+        max-height: 70%;
+        margin-top: 20px;
+    }
 `
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
@@ -196,6 +202,10 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
         color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
     }
 
+    @media (max-width: 400px) {
+        margin: 0 0 10px 70px;
+    }
+
     @media (max-width: 390px) {
         margin: 0 0 10px 60px;
     }
@@ -204,8 +214,16 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
         margin: 0 0 10px 58px;
     }
 
+    @media (max-width: 360px) {
+        margin: 0 0 10px 50px;
+    }
+
     @media (max-width: 320px) {
         margin: 0 0 10px 30px;
+    }
+
+    @media (max-width: 240px) {
+        margin: 0 0 10px 0px;
     }
 `
 const DivSearch = styled.div`
@@ -229,6 +247,14 @@ const DivSearch = styled.div`
         right: 100px;
     }
 
+    @media (max-width: 415px) {
+        right: 95px;
+    }
+
+    @media (max-width: 400px) {
+        right: 90px;
+    }
+
     @media (max-width: 390px) {
         right: 82px;
     }
@@ -237,8 +263,16 @@ const DivSearch = styled.div`
         right: 75px;
     }
 
+    @media (max-width: 360px) {
+        right: 70px;
+    }
+
     @media (max-width: 320px) {
         right: 48px;
+    }
+
+    @media (max-width: 240px) {
+        right: 15px;
     }
 `
 

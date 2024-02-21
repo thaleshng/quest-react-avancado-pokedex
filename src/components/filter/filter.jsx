@@ -82,6 +82,10 @@ export const Form = styled.form`
         bottom: 15px;
     }
 
+    @media (max-width: 400px) {
+        margin: 0 0 10px 70px;
+    }
+
     @media (max-width: 390px) {
         margin: 0 0 10px 60px;
     }
@@ -90,8 +94,16 @@ export const Form = styled.form`
         margin: 0 0 10px 58px;
     }
 
+    @media (max-width: 360px) {
+        margin: 0 0 10px 50px;
+    }
+
     @media (max-width: 320px) {
         margin: 0 0 10px 30px;
+    }
+
+    @media (max-width: 240px) {
+        margin: 0 0 10px 0px;
     }
 `
 
