@@ -185,6 +185,10 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
         color: ${({ icon }) => (icon === faXmark ? props => props.theme['--color-filter-hover'] : "none")};
     }
 
+    @media (min-width: 2560px) {
+        color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
+    }
+
     @media (max-width: 1280px) {
         margin: 0 0 10px 55px;
     }
@@ -237,6 +241,10 @@ const DivSearch = styled.div`
         right: 25px;
         top: 3px;
         color: #999
+    }
+
+    @media (max-width: 1024px) {
+        right: 28px;
     }
 
     @media (max-width: 768px) {
