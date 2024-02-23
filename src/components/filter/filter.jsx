@@ -64,46 +64,66 @@ export const Form = styled.form`
     position: relative;
     bottom: -10px;
 
+    @media (max-width: 2560px) {
+        margin: 0 0 0 530px;
+    }
+
+    @media (max-width: 1920px) {
+        margin: 0 0 0 210px;
+    }
+
+    @media (max-width: 1440px) {
+        margin: 0 0 0 140px;
+    }
+
+    @media (max-width: 1366px) {
+        margin: 0 0 0 110px;
+    }
+
+    @media (max-width: 1360px) {
+        margin: 0 0 0 100px;
+    }
+
     @media (max-width: 1280px) {
-        margin: 0 0 10px 55px;
+        margin: 0 0 0 55px;
     }
 
     @media (max-width: 1024px) {
-        margin: 0 0 10px 45px;
+        margin: 0 0 0 45px;
     }
 
     @media (max-width: 768px) {
-        margin: 0 0 10px 35px;
+        margin: 0 0 0 35px;
     }
 
     @media (max-width: 425px) {
-        margin: 0 0 10px 80px;
+        margin: 0 0 0 80px;
         width: 210px;
         bottom: 15px;
     }
 
     @media (max-width: 400px) {
-        margin: 0 0 10px 70px;
+        margin: 0 0 0 70px;
     }
 
     @media (max-width: 390px) {
-        margin: 0 0 10px 60px;
+        margin: 0 0 0 60px;
     }
 
     @media (max-width: 375px) {
-        margin: 0 0 10px 58px;
+        margin: 0 0 0 58px;
     }
 
     @media (max-width: 360px) {
-        margin: 0 0 10px 50px;
+        margin: 0 0 0 50px;
     }
 
     @media (max-width: 320px) {
-        margin: 0 0 10px 30px;
+        margin: 0 0 0 30px;
     }
 
     @media (max-width: 240px) {
-        margin: 0 0 10px 0px;
+        margin: 0 0 0 0px;
     }
 `
 
@@ -125,7 +145,7 @@ export const UlTypes = styled.ul`
 `
 
 export const H2TypesAndText = styled.h2`
-    font-size: 18px;
+    font-size: 24px;
     font-family: 'Flexo-Demi';
     color: ${props => props.theme['--general-color']};
     margin: 5px 0;
@@ -228,6 +248,10 @@ background: ${({ content }) => {
     border-radius: 3px;
     font-size: 14px;
     font-family: 'Flexo-Medium';
+
+    @media (min-width: 2560px) {
+        font-size: 22px;
+    }
 `
 
 export const Input = styled.input`
@@ -292,6 +316,10 @@ export const ResetInput = styled.input`
         transition: 0.3s ease-in-out;
         width: 100px;
         align-self: center;
+
+        @media (min-width: 2560px) {
+            font-size: 22px;
+        }
 
         &:hover {
             background-color: ${props => props.theme['--primary-bg-color']};

@@ -187,16 +187,28 @@ const DivLink = styled.div`
     & > a {
         font-size: 25px;
         color: ${props => props.theme['--general-color']};
+
+        @media (min-width: 1920px) {
+            font-size: 36px;
+        }
     }
 
     & > a:hover {
         font-size: 26px;
+
+        @media (min-width: 1920px) {
+            font-size: 37px;
+        }
     }
 `
 const DivContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 5px; 
+
+    @media (min-width: 1920px) {
+        padding: 0 40px;
+    }
 `
 
 const H1 = styled.h1`
@@ -204,6 +216,14 @@ const H1 = styled.h1`
     text-transform: capitalize;
     font-family: 'Flexo-Medium';
     margin-bottom: 10px;
+
+    @media (min-width: 2560px) {
+        font-size: 48px;
+    }
+
+    @media (min-width: 1920px) {
+        font-size: 40px;
+    }
     
     & > span {
         color: #888888;
@@ -229,6 +249,15 @@ const SectionGeneralInfos = styled.section`
     width: 450px;
     align-items: center;
 
+    @media (min-width: 1920px) {
+        width: 600px;
+    }
+
+    @media (min-width: 1280px) {
+        justify-content: center;
+        gap: 40px
+    }
+
     @media (min-width: 651px) {
         border-right: 1px solid ${props => props.theme['--border-color']};
     }
@@ -247,6 +276,11 @@ const Img = styled.img`
     background-color: ${props => props.theme['--secundary-bg-color-opacity']};
     border-radius: 15px;
     align-self: center;
+
+    @media (min-width: 1920px) {
+        width: 450px;
+        height: 450px;
+    }
 
     @media (max-width: 650px) {
         flex-direction: column;
@@ -348,7 +382,15 @@ const SpanTypes = styled.span`
         } else {
             return '#212121';
         }
-    }};"
+    }};
+
+    @media (min-width: 1920px) {
+        font-size: 25px;
+    }
+
+    @media (min-width: 2560px) {
+        font-size: 30px;
+    }
 `
 const SectionAbilitiesAndMoves = styled.section`
     display: flex;
@@ -370,6 +412,14 @@ const UlAbilities = styled.ul`
         font-family: 'Flexo-Bold';
         text-align: center;
         border-bottom: 2px solid ${props => props.theme['--border-color']};
+
+        @media (min-width: 1920px) {
+            font-size: 32px;
+        }
+
+        @media (min-width: 2560px) {
+            font-size: 40px;
+        }
     }
 
     & svg {
@@ -378,6 +428,16 @@ const UlAbilities = styled.ul`
         height: 18px;
         cursor: pointer;
         transition: 0.3s ease-in-out;
+
+        @media (min-width: 1920px) {
+            width: 22px;
+            height: 22px;
+        }
+
+        @media (min-width: 2560px) {
+            width: 30px;
+            height: 30px;
+        }
     }
 
     & svg:hover {
@@ -396,12 +456,28 @@ const LiAbilities = styled.li`
         text-transform: capitalize;
         text-align: center;
         color: #FFF;
+
+        @media (min-width: 1920px) {
+            font-size: 25px;
+        }
+
+        @media (min-width: 2560px) {
+            font-size: 34px;
+        }
     }
 `
 
 const AbilityDescription = styled.p`
     display: ${props => props.isVisible ? 'block' : 'none'};
     text-align: center;
+
+    @media (min-width: 1920px) {
+        font-size: 22px;
+    }
+
+    @media (min-width: 2560px) {
+        font-size: 30px;
+    }
 `;
 
 const DivMoves = styled.div`
@@ -416,6 +492,14 @@ const DivMoves = styled.div`
         font-family: 'Flexo-Bold';
         margin-top: 15px;
         border-bottom: 2px solid ${props => props.theme['--border-color']};
+
+        @media (min-width: 1920px) {
+            font-size: 32px;
+        }
+
+        @media (min-width: 2560px) {
+            font-size: 40px;
+        }
     }
 `
 
@@ -454,6 +538,14 @@ const LiMoves = styled.li`
         text-align: center;
         border-radius: 5px;
         color: ${props => props.theme['--general-color']};
+
+        @media (min-width: 1920px) {
+            font-size: 22px;
+        }
+
+        @media (min-width: 2560px) {
+            font-size: 34px;
+        }
     }
 
     & > p:hover {

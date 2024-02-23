@@ -78,7 +78,7 @@ const Ul = styled.ul`
 
     @media (min-width: 1450px) {
         width: 100vw;
-        height: 80vh;
+        min-width: 1500px;
     }
 `
 
@@ -98,7 +98,7 @@ const LiTypeNone = styled.li`
         color: ${props => props.theme['--general-color']};
 
         @media (min-width: 1450px) {
-            width: 1300px;
+            min-width: 1460px;
             font-size: 35px;
         }
 

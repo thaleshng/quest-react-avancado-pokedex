@@ -132,11 +132,6 @@ const Main = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    @media (min-width: 1450px) {
-        height: 80vh;
-        max-width: 1920px;
-    }
 `
 
 const ImgLogo = styled.img`
@@ -185,20 +180,40 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
         color: ${({ icon }) => (icon === faXmark ? props => props.theme['--color-filter-hover'] : "none")};
     }
 
-    @media (min-width: 2560px) {
-        color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
+    // @media (min-width: 2560px) {
+    //     color: ${({ icon }) => (icon !== 'faXmark' ? '#000' : 'inherit')}; 
+    // }
+
+    @media (max-width: 2560px) {
+        margin: 0 0 -20px 530px;
+    }
+
+    @media (max-width: 1920px) {
+        margin: 0 0 -20px 210px;
+    }
+
+    @media (max-width: 1440px) {
+        margin: 0 0 -20px 140px;
+    }
+
+    @media (max-width: 1366px) {
+        margin: 0 0 -20px 110px;
+    }
+
+    @media (max-width: 1360px) {
+        margin: 0 0 -20px 100px;
     }
 
     @media (max-width: 1280px) {
-        margin: 0 0 10px 55px;
+        margin: 0 0 -20px 55px;
     }
 
     @media (max-width: 1024px) {
-        margin: 0 0 10px 45px;
+        margin: 0 0 -20px 45px;
     }
 
     @media (max-width: 768px) {
-        margin: 0 0 10px 35px;
+        margin: 0 0 -20px 35px;
     }
 
     @media (max-width: 425px) {
@@ -241,6 +256,30 @@ const DivSearch = styled.div`
         right: 25px;
         top: 3px;
         color: #999
+    }
+
+    @media (max-width: 2560px) {
+        right: 510px;
+    }
+
+    @media (max-width: 1920px) {
+        right: 185px;
+    }
+
+    @media (max-width: 1440px) {
+        right: 118px;
+    }
+
+    @media (max-width: 1366px) {
+        right: 85px;
+    }
+
+    @media (max-width: 1360px) {
+        right: 78px;
+    }
+
+    @media (max-width: 1280px) {
+        right: 40px;
     }
 
     @media (max-width: 1024px) {
@@ -296,7 +335,7 @@ export const InputSearch = styled.input`
 
     @media (min-width: 1450px) {
        min-width: 250px;
-       font-size: 25px;
+       font-size: 22px;
     }
 `
 
