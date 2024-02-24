@@ -6,13 +6,13 @@
 
 <div align="center">
     <h3><strong>Desktop View</strong><h3>
-    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank"><img src="./src/assets/images/Desktop.gif" target="_blank"></a> 
+    <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank"><img src="./src/assets/images/desktop-view.gif" target="_blank"></a> 
 </div>
 
 <div align="center">
     <h3><strong>Mobile View</strong><h3>
     <a href="https://thaleshng.github.io/quest-react-avancado-pokedex/" target="_blank">
-        <img src="./src/assets/images/Mobile.gif" target="_blank">
+        <img src="./src/assets/images/mobile-view.gif" target="_blank">
     </a> 
 </div>
 
